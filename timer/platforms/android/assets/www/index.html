@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+	<title>&nbsp;</title>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
+		<script src="js/jquery-2.1.1.js"></script>
+		<script src="js/jquery.mobile-1.4.5.js"></script>
+		<script src="cordova.js" charset="utf-8" type="text/javascript"></script>
+	</head>
+	<body>
+		<!-- Start of first page I -->
+		<div data-role="page" id="page1">
+			<!-- Header -->
+			<div data-role="header">
+				<h1>eiTimer</h1>
+				<div class="navbar hide">
+					<ul class="nav-container">
+						<li id="first-item" class="nav-item nav-active">Timer1</li>
+  						<li id="second-item" class="nav-item">Timer2</li>
+					</ul>				
+				</div>
+			</div>
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content">
+				<div class ="overlay hide">
+					<h1>Alarm!</h1>
+					<div class="x-button">
+						<a href="#" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">no Text</a>
+					</div>
+					<div class="stop-music">
+					</div>
+				</div>
+				<div class ="overlay audio-dialog hide">
+					<div class="x-button">
+						<a href="#" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">no Text</a>
+					</div>
+					<div class="audio-info">
+						<h2>HINWEIS</h2>
+						Bitte gewünschte Audio-Datei in den Unterordner Alarm/ kopieren:
+						<br>
+						Beispiel: Alarm/beispiel.mp3
+						
+					</div>
+					<button class="act-audio">Audio aktualisieren</button>
+				</div>
+				<div class ="overlay camera-dialog hide">
+					<div class="x-button">
+						<a href="#" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">no Text</a>
+					</div>
+					<div class="picture-options">
+					<button class="capture-pic">Bild aufnehmen</button>
+					<button class="select-pic">Bild auswählen</button>
+					</div>
+				</div>
+				<p id="main">
+					<button class="reset-button hide">RESET</button>
+					<!--<audio controls id="audio">
+					  <source src="mp3/alarm.mp3" type="audio/mpeg">
+					</audio>-->
+					<fieldset data-role="controlgroup" data-type="horizontal" class="custom-fieldset">
+						
+						<select name="select-hour" id="select-hour">
+							<option value="std" >Std</option>
+						</select>
+				
+						<select name="select-minute" id="select-minute">
+				        	<option value="min" >Min</option>
+						</select>
+				
+						<select name="select-second" id="select-second">
+				        	<option value="sec" >Sek</option>
+						</select>
+					</fieldset>
+					
+					<div class="timer">
+						<div class="timer-centered">
+							<div class="plus-button">
+    						<a href="#" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">no Text</a>
+							</div>
+							<img id="img1" src="css/images/eiTimer.png" alt="Grafik">
+							<img id="img2" class="hide" src="css/images/eiTimer2.png" alt="Grafik">
+							<img id="img3" class="hide" src="css/images/eiTimer3.png" alt="Grafik">
+						</div>
+						<div class="countdown">
+							<h2 id="first-timer-data">00:00:00</h2>
+							<h2 class="hide" id="second-timer-data">00:00:00</h2>
+							<h2 class="hide" id="third-timer-data">00:00:00</h2>
+						</div>
+					</div>
+					<div class="audio-camera-box">
+					<div class="camera-button">
+    					<a href="#" class="ui-btn ui-icon-camera ui-btn-icon-notext ui-corner-all">no Text</a>
+					</div>
+					<div class="audio-button">
+    					<a href="#" class="ui-btn ui-icon-audio ui-btn-icon-notext ui-corner-all">no Text</a>
+					</div>
+					</div>
+					<button id="first-start" class="start-button background-green">START</button>
+					<button id="second-start" class="start-button background-green hide">START</button>
+					<button id="third-start" class="start-button background-green hide">START</button>
+				</p>
+			</div>
+			<!-- /content -->
+			<!-- footer -->
+			<div data-role="footer">
+				<h4>&copy; 2014 Kültür D.</h4>
+			</div>
+			<!-- /footer -->
+		</div>
+		<!-- /page -->
+
+	</body>
+</html>
+<script>
+	
+	var pictureSource;   // picture source
+    var destinationType;
+	var media;
+	var firstTimer;
+	var secondTimer;
+	var thirdTimer;
+	var moreTimers = false;
+	var timerCount = $(".nav-item").length;
+	var active = $("#first-item");
+	
+	var firstTime = {
+		hour:0,
+		minute:0,
+		second:0,
+		started:false,
+		stopped:false
+	};
+	
+	var secondTime = {
+		hour:0,
+		minute:0,
+		second:0,
+		started:false,
+		stopped:false
+	};
+	
+	var thirdTime = {
+		hour:0,
+		minute:0,
+		second:0,
+		started:false,
+		stopped:false
+	};
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
+
+	function onDeviceReady() {
+		initEvents();
+		initTimes();
+		
+		
+	}
+
+
+//What to do when paused
+function onPause(){
+	
+	alert("paused!");
+}
+
+//What to do when resumed
+function onResume()
+{
+	
+	alert("resume");
+}
+
+function initTimes(){
+	
+	//generate Hours
+	for(var i=0;i<=23;i++){
+		if(i<=9){
+			var opt = $("<option></option>").text("0"+i);
+		}else{
+			var opt = $("<option></option>").text(i+"");
+		}
+		
+		$(opt).attr("value",i+"");
+		$("#select-hour").append(opt);
+	}
+	
+	//generate Minutes
+	for(var i=0;i<=60;i++){
+		if(i<=9){
+			var opt = $("<option></option>").text("0"+i);
+		}else{
+			var opt = $("<option></option>").text(i+"");
+		}
+		
+		$(opt).attr("value",i+"");
+		$("#select-minute").append(opt);
+	}
+	
+	//generate Seconds
+	for(var i=0;i<=60;i++){
+		if(i<=9){
+			var opt = $("<option></option>").text("0"+i);
+		}else{
+			var opt = $("<option></option>").text(i+"");
+		}
+		
+		$(opt).attr("value",i+"");
+		$("#select-second").append(opt);
+	}
+}
+
+function initEvents(){
+
+		document.addEventListener("pause", onPause, false);
+		document.addEventListener("resume", onResume, false);
+		
+		var hour;
+		var minute;
+		var second;
+		
+		$(".camera-button").click(function() {
+			
+			$(".camera-dialog").removeClass('hide');
+			
+			$(".capture-pic").click(capturePic());
+			$(".select-pic").click(selectPic(pictureSource.PHOTOLIBRARY));
+			
+			pictureSource=navigator.camera.PictureSourceType;
+        	destinationType=navigator.camera.DestinationType;
+     	});
+		
+		$(".act-audio").click(function() {
+			refreshAudio();
+		});
+		
+		$(".audio-button").click(function() {
+			$(".audio-dialog").removeClass('hide');
+			
+		});
+		
+		$(".stop-music").click(function() {
+			media.stop();
+			$(this).addClass('hide');
+		});
+		
+		
+		$(".x-button").click(function() {
+			$(".audio-dialog").addClass('hide');
+			$(".overlay").addClass("hide");
+			$(".stop-music").removeClass('hide');
+			$(".camera-dialog").addClass('hide');
+		});
+		
+		$("li").click(function(){
+			$(active).removeClass('nav-active');
+			$(this).addClass("nav-active");
+			active = this;
+			var id = $(this).attr("id");
+			if(id === "first-item"){
+				$("#first-timer-data").removeClass("hide");
+				$("#second-timer-data").addClass("hide");
+				$("#third-timer-data").addClass("hide");
+				
+				$("#first-start").removeClass("hide");
+				$("#second-start").addClass("hide");
+				$("#third-start").addClass("hide");
+				
+				$("#img1").removeClass("hide");
+				$("#img2").addClass("hide");
+				$("#img3").addClass("hide");
+				
+				if($("#first-timer-data").text() === "00:00:00"){
+					$(".reset-button").addClass('hide');
+					$("fieldset").removeClass('hide');
+				}else{
+					$("fieldset").addClass('hide');
+					$(".reset-button").removeClass('hide');	
+				}
+				
+			}else if(id === "second-item"){
+				$("#second-timer-data").removeClass("hide");
+				$("#first-timer-data").addClass("hide");
+				$("#third-timer-data").addClass("hide");
+				
+				$("#second-start").removeClass("hide");
+				$("#first-start").addClass("hide");
+				$("#third-start").addClass("hide");
+				
+				$("#img2").removeClass("hide");
+				$("#img1").addClass("hide");
+				$("#img3").addClass("hide");
+				
+				if($("#second-timer-data").text() === "00:00:00"){
+					$(".reset-button").addClass('hide');
+					$("fieldset").removeClass('hide');
+				}else{
+					$("fieldset").addClass('hide');
+					$(".reset-button").removeClass('hide');	
+				}
+			}
+		});
+		
+		$(".plus-button").click(function(){
+			
+			if(moreTimers === true && $(".nav-item").length <=2){
+				
+				var li = $("<li></li>");
+				$(li).addClass("nav-item");
+				$(li).text("Timer3");
+				$(li).attr("id","third-item");
+				
+				$(li).click(function(){
+					$(active).removeClass('nav-active');
+					$(this).addClass("nav-active");
+					active = this;
+					
+					$("#third-timer-data").removeClass("hide");
+					$("#second-timer-data").addClass("hide");
+					$("#first-timer-data").addClass("hide");
+					
+					$("#third-start").removeClass("hide");
+					$("#second-start").addClass("hide");
+					$("#first-start").addClass("hide");
+					
+					$("#img3").removeClass("hide");
+					$("#img2").addClass("hide");
+					$("#img1").addClass("hide");
+					
+					if($("#third-timer-data").text() === "00:00:00"){
+					$(".reset-button").addClass('hide');
+					$("fieldset").removeClass('hide');
+					}else{
+					$("fieldset").addClass('hide');
+					$(".reset-button").removeClass('hide');	
+					}
+				
+				});
+				
+				$(".nav-container").append(li);
+				
+			}else{
+				$(".navbar").removeClass("hide");
+				moreTimers = true;
+			}
+			
+		});
+		
+		$("#first-start").click(function(){
+			
+			hour 	= 	parseInt($("#select-hour").val());
+			minute 	= 	parseInt($("#select-minute").val());
+			second 	= 	parseInt($("#select-second").val());
+			
+			var actElement = $(".nav-active");
+			var actId = $(actElement).attr("id");
+			
+			
+			if(isNaN(hour) || isNaN(minute) || isNaN(second)){
+				alert("Timer richtig einstellen!");
+			}
+			else{
+				
+			if(actId === "first-item"){
+			
+				if(firstTime.started === false && firstTime.stopped === false){
+				
+					firstTime.started = true;
+			
+					loopTime(hour,minute,second);
+					
+					$(this).text("STOP");
+					$(this).removeClass("background-green");
+					$(this).addClass("background-red");
+					
+					$("fieldset").addClass("hide");
+					$(".reset-button").removeClass("hide");
+				
+				}
+				else if(firstTime.stopped === true){
+					
+					firstTime.stopped = false;
+					firstTime.started = true;
+					
+					hour = firstTime.hour;
+					minute = firstTime.minute;
+					second = firstTime.second;
+					
+					loopTime(hour,minute,second-1);
+				
+					$(this).text("STOP");
+					$(this).removeClass("background-green");
+					$(this).addClass("background-red");
+					
+				}
+				else{
+					
+					firstTime.started = false;
+					firstTime.stopped = true;
+					
+					clearInterval(firstTimer);
+					
+					$(this).text("START");
+					$(this).removeClass("background-red");
+					$(this).addClass("background-green");
+				}
+				
+			}
+			
+			}
+			
+		});
+		
+		$("#second-start").click(function(){
+			
+			hour 	= 	parseInt($("#select-hour").val());
+			minute 	= 	parseInt($("#select-minute").val());
+			second 	= 	parseInt($("#select-second").val());
+			
+			var actElement = $(".nav-active");
+			var actId = $(actElement).attr("id");
+			
+			
+			if(isNaN(hour) || isNaN(minute) || isNaN(second)){
+				alert("Timer bitte richtig einstellen!");
+			}
+			else{
+				
+			if(actId === "second-item"){
+			
+				if(secondTime.started === false && secondTime.stopped === false){
+				
+					secondTime.started = true;
+			
+					loopTime(hour,minute,second);
+					
+					$(this).text("STOP");
+					$(this).removeClass("background-green");
+					$(this).addClass("background-red");
+					
+					$("fieldset").addClass("hide");
+					$(".reset-button").removeClass("hide");
+				
+				}
+				else if(secondTime.stopped === true){
+					
+					secondTime.stopped = false;
+					secondTime.started = true;
+					
+					hour = secondTime.hour;
+					minute = secondTime.minute;
+					second = secondTime.second;
+					
+					loopTime(hour,minute,second-1);
+				
+					$(this).text("STOP");
+					$(this).removeClass("background-green");
+					$(this).addClass("background-red");
+					
+				}
+				else{
+					
+					secondTime.started = false;
+					secondTime.stopped = true;
+					
+					clearInterval(secondTimer);
+					
+					$(this).text("START");
+					$(this).removeClass("background-red");
+					$(this).addClass("background-green");
+				}
+				
+			}
+			
+			}
+			
+		});
+		
+		$("#third-start").click(function(){
+			
+			hour 	= 	parseInt($("#select-hour").val());
+			minute 	= 	parseInt($("#select-minute").val());
+			second 	= 	parseInt($("#select-second").val());
+			
+			var actElement = $(".nav-active");
+			var actId = $(actElement).attr("id");
+			
+			
+			if(isNaN(hour) || isNaN(minute) || isNaN(second)){
+				alert("Timer bitte richtig einstellen!");
+			}
+			else{
+				
+			if(actId === "third-item"){
+			
+				if(thirdTime.started === false && thirdTime.stopped === false){
+				
+					thirdTime.started = true;
+			
+					loopTime(hour,minute,second);
+					
+					$(this).text("STOP");
+					$(this).removeClass("background-green");
+					$(this).addClass("background-red");
+					
+					$("fieldset").addClass("hide");
+					$(".reset-button").removeClass("hide");
+				
+				}
+				else if(thirdTime.stopped === true){
+					
+					thirdTime.stopped = false;
+					thirdTime.started = true;
+					
+					hour = thirdTime.hour;
+					minute = thirdTime.minute;
+					second = thirdTime.second;
+					
+					loopTime(hour,minute,second-1);
+				
+					$(this).text("STOP");
+					$(this).removeClass("background-green");
+					$(this).addClass("background-red");
+					
+				}
+				else{
+					
+					thirdTime.started = false;
+					thirdTime.stopped = true;
+					
+					clearInterval(thirdTimer);
+					
+					$(this).text("START");
+					$(this).removeClass("background-red");
+					$(this).addClass("background-green");
+				}
+				
+			}
+			
+			}
+			
+		});
+		
+		$(".reset-button").click(function(){
+			
+			var actElement = $(".nav-active");
+			var actId = $(actElement).attr("id");
+			
+			if(actId === "first-item"){
+							
+			if(firstTime.started === true ){
+				clearInterval(firstTimer);
+				$("#first-start").text("START");
+				$("#first-start").removeClass("background-red");
+				$("#first-start").addClass("background-green");
+			}			
+			
+			
+			$("fieldset").removeClass("hide");
+			$(".reset-button").addClass("hide");
+			
+			firstTime = 
+				{
+					hour:0,
+					minute:0,
+					second:0
+				};
+				
+			firstTime.started = false;
+			firstTime.stopped = false;
+			
+			$("#first-timer-data").text("00:00:00");
+			}
+			else if(actId === "second-item"){
+							
+			if(secondTime.started === true ){
+				clearInterval(secondTimer);
+				$(".start-button").text("START");
+				$(".start-button").removeClass("background-red");
+				$(".start-button").addClass("background-green");
+			}			
+			
+			
+			$("fieldset").removeClass("hide");
+			$(".reset-button").addClass("hide");
+			
+			secondTime = 
+				{
+					hour:0,
+					minute:0,
+					second:0
+				};
+				
+			secondTime.started = false;
+			secondTime.stopped = false;
+			
+			$("#second-timer-data").text("00:00:00");
+			}
+			else if(actId === "third-item"){
+							
+			if(thirdTime.started === true ){
+				clearInterval(thirdTimer);
+				$(".start-button").text("START");
+				$(".start-button").removeClass("background-red");
+				$(".start-button").addClass("background-green");
+			}			
+			
+			
+			$("fieldset").removeClass("hide");
+			$(".reset-button").addClass("hide");
+			
+			thirdTime = 
+				{
+					hour:0,
+					minute:0,
+					second:0
+				};
+				
+			thirdTime.started = false;
+			thirdTime.stopped = false;
+			
+			$("#third-timer-data").text("00:00:00");
+			}
+			//BUG 2 beim resetten auch auf std/min/sec setzen
+		});
+		
+
+}
+
+//Logic of Application
+function updateFirstTimer(h,m,s){
+	
+	//BUG bei 0 Sekunden doppelte Sekunde warten beim Start
+	if(s === -1){
+		s = 0;
+	}
+	
+	
+	firstTime.hour = h;
+	firstTime.minute = m;
+	firstTime.second = s;
+	
+	if(s <= 9){
+		s = "0"+s;
+	}
+	if(m <= 9){
+		m = "0"+m;
+	}
+	if(h <= 9){
+		h = "0"+h;
+	}
+	
+	var actTime = h+":"+m+":"+s;
+	$("#first-timer-data").text(actTime);
+	
+	console.log(s);
+	
+	h = firstTime.hour;
+	m = firstTime.minute;
+	s = firstTime.second;
+	
+	if(s === 0){
+		if(m === 0){
+			if(h === 0){
+				clearInterval(firstTimer);
+				buildAudio();
+				$(".overlay").removeClass('hide');
+				//document.getElementById("audio").play();
+				$("#first-start").text("START");
+				$("#first-start").removeClass("background-red");
+				$("#first-start").addClass("background-green");
+				$("fieldset").removeClass("hide");
+				$(".reset-button").addClass("hide");
+				firstTime.started = false;
+				firstTime.stopped = false;
+			}
+			else{
+				clearInterval(firstTimer);
+				loopFirstTime((h-1),59,59);
+			}
+		}
+		else{
+				
+			clearInterval(firstTimer);
+			loopFirstTime(h,(m-1),59);
+	
+		}
+
+	}
+	
+}
+
+function updateThirdTimer(h,m,s){
+	
+	//BUG bei 0 Sekunden doppelte Sekunde warten beim Start
+	if(s === -1){
+		s = 0;
+	}
+	
+	
+	thirdTime.hour = h;
+	thirdTime.minute = m;
+	thirdTime.second = s;
+	
+	if(s <= 9){
+		s = "0"+s;
+	}
+	if(m <= 9){
+		m = "0"+m;
+	}
+	if(h <= 9){
+		h = "0"+h;
+	}
+	
+	var actTime = h+":"+m+":"+s;
+	$("#third-timer-data").text(actTime);
+	
+	console.log(s);
+	
+	h = thirdTime.hour;
+	m = thirdTime.minute;
+	s = thirdTime.second;
+	
+	if(s === 0){
+		if(m === 0){
+			if(h === 0){
+				clearInterval(thirdTimer);
+				buildAudio();
+				$(".overlay").removeClass('hide');
+				//document.getElementById("audio").play();
+				$("#third-start").text("START");
+				$("#third-start").removeClass("background-red");
+				$("#third-start").addClass("background-green");
+				$("fieldset").removeClass("hide");
+				$(".reset-button").addClass("hide");
+				thirdTime.started = false;
+				thirdTime.stopped = false;
+			}
+			else{
+				clearInterval(thirdTimer);
+				loopThirdTime((h-1),59,59);
+			}
+		}
+		else{
+				
+			clearInterval(thirdTimer);
+			loopThirdTime(h,(m-1),59);
+	
+		}
+
+	}
+	
+}
+
+function updateSecondTimer(h,m,s){
+	
+	//BUG bei 0 Sekunden doppelte Sekunde warten beim Start
+	if(s === -1){
+		s = 0;
+	}
+	
+	
+	secondTime.hour = h;
+	secondTime.minute = m;
+	secondTime.second = s;
+	
+	if(s <= 9){
+		s = "0"+s;
+	}
+	if(m <= 9){
+		m = "0"+m;
+	}
+	if(h <= 9){
+		h = "0"+h;
+	}
+	
+	var actTime = h+":"+m+":"+s;
+	$("#second-timer-data").text(actTime);
+	
+	console.log(s);
+	
+	h = secondTime.hour;
+	m = secondTime.minute;
+	s = secondTime.second;
+	
+	if(s === 0){
+		if(m === 0){
+			if(h === 0){
+				clearInterval(secondTimer);
+				buildAudio();
+				$(".overlay").removeClass('hide');
+				//document.getElementById("audio").play();
+				$("#second-start").text("START");
+				$("#second-start").removeClass("background-red");
+				$("#second-start").addClass("background-green");
+				$("fieldset").removeClass("hide");
+				$(".reset-button").addClass("hide");
+				secondTime.started = false;
+				secondTime.stopped = false;
+			}
+			else{
+				clearInterval(secondTimer);
+				loopSecondTime((h-1),59,59);
+			}
+		}
+		else{
+				
+			clearInterval(secondTimer);
+			loopSecondTime(h,(m-1),59);
+	
+		}
+
+	}
+	
+}
+
+//Interval method
+function loopTime(h,m,s){
+	
+	var actElement = $(".nav-active");
+	var actId = $(actElement).attr("id");
+	
+	if(actId === "first-item"){
+	
+	firstTimer =	setInterval(function () {
+        	updateFirstTimer(h,m,(s));
+        	s--;
+    	}, 1000);
+    	
+   }else if(actId ==="second-item"){
+   	
+   	secondTimer =	setInterval(function () {
+        	updateSecondTimer(h,m,(s));
+        	s--;
+    	}, 1000);
+   	
+   }else if(actId ==="third-item"){
+   	
+   	thirdTimer =	setInterval(function () {
+        	updateThirdTimer(h,m,(s));
+        	s--;
+    	}, 1000);
+   	
+   }
+	
+}
+
+function loopFirstTime(h,m,s){
+	
+	firstTimer =	setInterval(function () {
+        	updateFirstTimer(h,m,(s));
+        	s--;
+    	}, 1000);
+    	
+	
+}
+
+function loopSecondTime(h,m,s){
+	
+	secondTimer =	setInterval(function () {
+        	updateSecondTimer(h,m,(s));
+        	s--;
+    	}, 1000);
+    	
+	
+}
+
+function loopThirdTime(h,m,s){
+	
+	thirdTimer =	setInterval(function () {
+        	updateThirdTimer(h,m,(s));
+        	s--;
+    	}, 1000);
+    	
+	
+}
+
+//Build music
+function buildAudio(){
+	/*if($("#audio").length >0){
+		$("#audio").remove();
+	}
+	var audio = $("<audio></audio>");
+	var source = $("<source>");
+	
+	$(source).attr("src","mp3/alarm.mp3");
+	$(source).attr("type","audio/mpeg");
+	$(audio).attr("id","audio");
+	$(audio).attr("controls","");
+	$(audio).append(source);
+	$("#main").append(audio);*/
+	media = new Media("mp3/alarm.mp3",function(){
+		console.log("music is coming");
+	},function(){
+		console.log("music is not coming");
+	});
+	media.play();
+	//new Audio("mp3/alarm.mp3").play();
+}
+
+ function refreshAudio(){
+ 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+ }
+ 
+ function onFileSystemSuccess(fileSystem) {
+    fileSystem.root.getDirectory("Alarm", {create: false, exclusive: false}, getDirSuccess, fail);
+}
+
+function getDirSuccess(dirEntry) {
+    var directoryReader = dirEntry.createReader();
+    directoryReader.readEntries(readerSuccess,fail);
+}
+
+function readerSuccess(entries) {
+            if(entries[0].name.indexOf(".mp3") != -1){
+                media =  new Media(entries[0].fullPath);
+            }
+}
+
+//audio
+function fail(error) {
+        console.log(error.code);
+    }
+    
+function capturePic(){
+	navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+}
+
+function selectPic(source){
+	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+}
+
+function onPhotoDataSuccess(imageData) {
+       console.log(imageData);
+
+      // Get image handle
+      
+      var pic;
+      if($("#img1").hasClass('hide') === false){
+      	pic = $(this);
+      }else if($("#img2").hasClass('hide') === false){
+      	pic = $(this);
+      }else if($("#img3").hasClass('hide') === false){
+      	pic = $(this);
+      }
+      //
+
+      // Show the captured photo
+      // The in-line CSS rules are used to resize the image
+      //
+      //smallImage.src = "data:image/jpeg;base64," + imageData;
+      pic.attr("src","data:image/jpeg;base64," + imageData);
+    }
+    
+    function onPhotoURISuccess(imageURI) {
+       console.log(imageURI);
+
+      var pic;
+      if($("#img1").hasClass('hide') === false){
+      	pic = $(this);
+      }else if($("#img2").hasClass('hide') === false){
+      	pic = $(this);
+      }else if($("#img3").hasClass('hide') === false){
+      	pic = $(this);
+      }
+      // Show the captured photo
+      // The in-line CSS rules are used to resize the image
+      //
+      
+      pic.attr("src",imageURI);
+    }
+    
+    //image
+function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+</script>
