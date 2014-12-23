@@ -5,19 +5,18 @@
 		<meta charset="utf-8" />
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="msapplication-tap-highlight" content="no" />
-		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="jQuery/jquery.mobile-1.4.5.min.css" />
+		<link rel="stylesheet" type="text/css" href="jQuery/jquery.mobile-1.4.5.css" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
-		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
 		<title>quartettApp</title>
 	</head>
 	<body>
 
-		<!-- Start of first page -->
+		<!-- Start of menu page -->
 		<div data-role="page" id="menu">
 
 			<div data-role="header">
@@ -28,34 +27,113 @@
 				<div class="flex-column-menu">
 					<a href="#new_game_options" class="ui-btn">Neues Spiel</a>
 					<a href="#gallery" class="ui-btn">Galerie</a>
-					<a href="#options" class="ui-btn">Optionen</a>
 					<a href="#help" class="ui-btn">Hilfe</a>
 				</div>
 			</div>
 
-			<div data-role="footer">
+			<div data-role="footer" data-position="fixed">
 				<h1>Alpha 0.1</h1>
 			</div>
 		</div>>
-		
-		<!-- Start of second page -->
+
+		<!-- Start of new_game_options page -->
 		<div data-role="page" id="new_game_options">
-			<h1>NEUES SPIEL</h1>
+			<div data-role="header">
+				<h1>Neues Spiel</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Spielmodus wählen</h2>
+					<a href="#round_options" class="ui-btn">Runden</a>
+					<a href="#stab_options" class="ui-btn">Stiche</a>
+					<a id="start_as_deathmatch" href="#new_game" class="ui-btn">Deathmatch</a>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
 		</div><!-- /page -->
-		
-		<!-- Start of third page -->
+
+		<!-- Start of gallery page -->
 		<div data-role="page" id="gallery">
-			<h1>NEUES SPIEL</h1>
+			<div data-role="header">
+				<h1>Galerie</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Verfügbare Decks</h2>
+					<a href="#" class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext deck-icon">Deck hinzufügen</a>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
 		</div><!-- /page -->
-		
-		<!-- Start of fourth page -->
-		<div data-role="page" id="options">
-			<h1>NEUES SPIEL</h1>
-		</div><!-- /page -->
-		
-		<!-- Start of fifth page -->
+
+		<!-- Start of help page -->
 		<div data-role="page" id="help">
-			<h1>NEUES SPIEL</h1>
+			<div data-role="header">
+				<h1>Hilfe</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Spielregeln</h2>
+					
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of round_options page -->
+		<div data-role="page" id="round_options">
+			<div data-role="header">
+				<h1>Runden</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Wie viele Runden?</h2>
+					<div class="flex-row-menu">
+						<a href="#new_game" class="ui-btn">8</a>
+						<a href="#new_game" class="ui-btn">16</a>
+						<a href="#new_game" class="ui-btn">32</a>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of stab_options page -->
+		<div data-role="page" id="stab_options">
+			<div data-role="header">
+				<h1>Stiche</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Wie viele Stiche?</h2>
+					<div class="flex-row-menu">
+						<a href="#new_game" class="ui-btn">8</a>
+						<a href="#new_game" class="ui-btn">16</a>
+						<a href="#new_game" class="ui-btn">32</a>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
 		</div><!-- /page -->
 
 	</body>
