@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="jQuery/jquery.mobile-1.4.5.css" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/database.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
 		<title>quartettApp</title>
@@ -63,9 +64,9 @@
 			</div>
 
 			<div role="main" class="ui-content">
-				<div class="flex-column-menu">
+				<div id="gallery_deck" class="flex-column-menu">
 					<h2>Verfügbare Decks</h2>
-					<a href="#" class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext deck-icon">Deck hinzufügen</a>
+
 				</div>
 			</div>
 
@@ -83,7 +84,7 @@
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
 					<h2>Spielregeln</h2>
-					
+
 				</div>
 			</div>
 
@@ -101,10 +102,10 @@
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
 					<h2>Wie viele Runden?</h2>
-					<div class="flex-row-menu">
-						<a href="#new_game" class="ui-btn">8</a>
-						<a href="#new_game" class="ui-btn">16</a>
-						<a href="#new_game" class="ui-btn">32</a>
+					<div class="flex-row-menu flex-around">
+						<a href="#new_game" class="ui-btn min-width">8</a>
+						<a href="#new_game" class="ui-btn min-width">16</a>
+						<a href="#new_game" class="ui-btn min-width">32</a>
 					</div>
 				</div>
 			</div>
@@ -123,10 +124,10 @@
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
 					<h2>Wie viele Stiche?</h2>
-					<div class="flex-row-menu">
-						<a href="#new_game" class="ui-btn">8</a>
-						<a href="#new_game" class="ui-btn">16</a>
-						<a href="#new_game" class="ui-btn">32</a>
+					<div class="flex-row-menu flex-around">
+						<a href="#new_game" class="ui-btn min-width">8</a>
+						<a href="#new_game" class="ui-btn min-width">16</a>
+						<a href="#new_game" class="ui-btn min-width">32</a>
 					</div>
 				</div>
 			</div>
@@ -136,5 +137,19 @@
 			</div>
 		</div><!-- /page -->
 
+		<!-- Start of gallery-card page -->
+		<div data-role="page" id="gallery_card_page">
+			<div data-role="header">
+				<h1>Galerie</h1>
+			</div>
+
+			<div role="content" id="actual_card_gallery" class="ui-content">
+				
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1 id="gallery_card_footer">Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
 	</body>
 </html>
