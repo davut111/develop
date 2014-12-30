@@ -11,6 +11,8 @@
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/database.js"></script>
+		<script type="text/javascript" src="js/gallery.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
 		<title>quartettApp</title>
@@ -146,9 +148,22 @@
 			<div role="content" id="actual_card_gallery" class="ui-content">
 				
 			</div>
-
-			<div data-role="footer" data-position="fixed">
+			<div data-role="footer" class="footer">
 				<h1 id="gallery_card_footer">Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+		
+		<!-- Start of game page -->
+		<div data-role="page" id="new_game">
+			<div data-role="header" id="game_header">
+				<h1 id="game_header_title">Header</h1>
+			</div>
+
+			<div role="content" id="game_content" class="ui-content">
+				
+			</div>
+			<div data-role="footer" class="footer" id="game_footer">
+				<h1 id="game_footer_title">Footer</h1>
 			</div>
 		</div><!-- /page -->
 	</body>
