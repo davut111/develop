@@ -3,8 +3,8 @@ var game = {
 	options : null,
 	deck : null,
 	difficulty : null,
-	tableMiddle: [],
-	lastWon: null
+	tableMiddle : [],
+	lastWon : null
 };
 
 var modes = {
@@ -83,18 +83,113 @@ function showTopCard() {
 
 	switch(numberAttributes) {
 	case 3:
-		var attribute1 = '<div class="ui-block-a card-cell-3 even-cell sel-attribute">' + card.attributes[0].attributeName + '</div>' + '<div class="ui-block-b card-cell-3 even-cell sel-attribute card-value">' + card.attributes[0].value + ' ' + card.attributes[0].unit + '</div>';
-		var attribute2 = '<div class="ui-block-a card-cell-3 sel-attribute ">' + card.attributes[1].attributeName + '</div>' + '<div class="ui-block-b card-cell-3 sel-attribute card-value">' + card.attributes[1].value + ' ' + card.attributes[1].unit + '</div>';
-		var attribute3 = '<div class="ui-block-a card-cell-3 even-cell sel-attribute">' + card.attributes[2].attributeName + '</div>' + '<div class="ui-block-b card-cell-3 even-cell sel-attribute card-value">' + card.attributes[2].value + ' ' + card.attributes[2].unit + '</div>';
-		$("#game_content").append('<div class="ui-grid-a card-cell-big">' + attribute1 + attribute2 + attribute3 + '</div>');
+		var bigCell = $("<div>");
+		$(bigCell).addClass('ui-grid-a card-cell-big');
+
+		var attribute1 = $("<div>");
+		$(attribute1).addClass('ui-block-a card-cell-3 even-cell');
+		$(attribute1).attr('id', 'attribute1');
+		$(attribute1).html(card.attributes[0].attributeName);
+		var value1 = $("<div>");
+		$(value1).addClass('ui-block-b card-cell-3 even-cell card-value');
+		$(value1).attr('id', 'value1');
+		$(value1).html(card.attributes[0].value + ' ' + card.attributes[0].unit);
+
+		var attribute2 = $("<div>");
+		$(attribute2).addClass('ui-block-a card-cell-3');
+		$(attribute2).attr('id', 'attribute2');
+		$(attribute2).html(card.attributes[1].attributeName);
+		var value2 = $("<div>");
+		$(value2).addClass('ui-block-b card-cell-3 card-value');
+		$(value2).attr('id', 'value2');
+		$(value2).html(card.attributes[1].value + ' ' + card.attributes[1].unit);
+
+		var attribute3 = $("<div>");
+		$(attribute3).addClass('ui-block-a card-cell-3 even-cell');
+		$(attribute3).attr('id', 'attribute3');
+		$(attribute3).html(card.attributes[2].attributeName);
+		var value3 = $("<div>");
+		$(value3).addClass('ui-block-b card-cell-3 even-cell card-value');
+		$(value3).attr('id', 'value3');
+		$(value3).html(card.attributes[2].value + ' ' + card.attributes[2].unit);
+
+		$(bigCell).append(attribute1, value1, attribute2, value2, attribute3, value3, attribute4, value4, attribute5, value5);
+		$("#game_content").append(bigCell);
+		
+		$(attribute1).add(value1).click(function() {
+			$(attribute1).add(value1).addClass('selected-attribute');
+			loadDuellPage(0);
+		});
+		$(attribute2).add(value2).click(function() {
+			$(attribute2).add(value2).addClass('selected-attribute');
+			loadDuellPage(1);
+		});
+		$(attribute3).add(value3).click(function() {
+			$(attribute3).add(value3).addClass('selected-attribute');
+			loadDuellPage(2);
+		});
+		
 		break;
 	case 4:
-		var attribute1 = '<div class="ui-block-a card-cell-4 even-cell sel-attribute">' + card.attributes[0].attributeName + '</div>' + '<div class="ui-block-b card-cell-4 even-cell sel-attribute card-value">' + card.attributes[0].value + ' ' + card.attributes[0].unit + '</div>';
-		var attribute2 = '<div class="ui-block-a card-cell-4 sel-attribute ">' + card.attributes[1].attributeName + '</div>' + '<div class="ui-block-b card-cell-4 sel-attribute card-value">' + card.attributes[1].value + ' ' + card.attributes[1].unit + '</div>';
-		var attribute3 = '<div class="ui-block-a card-cell-4 even-cell sel-attribute">' + card.attributes[2].attributeName + '</div>' + '<div class="ui-block-b card-cell-4 even-cell sel-attribute card-value">' + card.attributes[2].value + ' ' + card.attributes[2].unit + '</div>';
-		var attribute4 = '<div class="ui-block-a card-cell-4 sel-attribute">' + card.attributes[3].attributeName + '</div>' + '<div class="ui-block-b card-cell-4 sel-attribute card-value">' + card.attributes[3].value + ' ' + card.attributes[3].unit + '</div>';
+		var bigCell = $("<div>");
+		$(bigCell).addClass('ui-grid-a card-cell-big');
 
-		$("#game_content").append('<div class="ui-grid-a card-cell-big">' + attribute1 + attribute2 + attribute3 + attribute4 + '</div>');
+		var attribute1 = $("<div>");
+		$(attribute1).addClass('ui-block-a card-cell-4 even-cell');
+		$(attribute1).attr('id', 'attribute1');
+		$(attribute1).html(card.attributes[0].attributeName);
+		var value1 = $("<div>");
+		$(value1).addClass('ui-block-b card-cell-4 even-cell card-value');
+		$(value1).attr('id', 'value1');
+		$(value1).html(card.attributes[0].value + ' ' + card.attributes[0].unit);
+
+		var attribute2 = $("<div>");
+		$(attribute2).addClass('ui-block-a card-cell-4');
+		$(attribute2).attr('id', 'attribute2');
+		$(attribute2).html(card.attributes[1].attributeName);
+		var value2 = $("<div>");
+		$(value2).addClass('ui-block-b card-cell-4 card-value');
+		$(value2).attr('id', 'value2');
+		$(value2).html(card.attributes[1].value + ' ' + card.attributes[1].unit);
+
+		var attribute3 = $("<div>");
+		$(attribute3).addClass('ui-block-a card-cell-4 even-cell');
+		$(attribute3).attr('id', 'attribute3');
+		$(attribute3).html(card.attributes[2].attributeName);
+		var value3 = $("<div>");
+		$(value3).addClass('ui-block-b card-cell-4 even-cell card-value');
+		$(value3).attr('id', 'value3');
+		$(value3).html(card.attributes[2].value + ' ' + card.attributes[2].unit);
+
+		var attribute4 = $("<div>");
+		$(attribute4).addClass('ui-block-a card-cell-4');
+		$(attribute4).attr('id', 'attribute4');
+		$(attribute4).html(card.attributes[3].attributeName);
+		var value4 = $("<div>");
+		$(value4).addClass('ui-block-b card-cell-4 card-value');
+		$(value4).attr('id', 'value4');
+		$(value4).html(card.attributes[3].value + ' ' + card.attributes[3].unit);
+
+		$(bigCell).append(attribute1, value1, attribute2, value2, attribute3, value3, attribute4, value4, attribute5, value5);
+		$("#game_content").append(bigCell);
+
+		$(attribute1).add(value1).click(function() {
+			$(attribute1).add(value1).addClass('selected-attribute');
+			loadDuellPage(0);
+		});
+		$(attribute2).add(value2).click(function() {
+			$(attribute2).add(value2).addClass('selected-attribute');
+			loadDuellPage(1);
+		});
+		$(attribute3).add(value3).click(function() {
+			$(attribute3).add(value3).addClass('selected-attribute');
+			loadDuellPage(2);
+		});
+		$(attribute4).add(value4).click(function() {
+			$(attribute4).add(value4).addClass('selected-attribute');
+			loadDuellPage(3);
+		});
+
 		break;
 	case 5:
 
@@ -103,37 +198,47 @@ function showTopCard() {
 
 		var attribute1 = $("<div>");
 		$(attribute1).addClass('ui-block-a card-cell-5 even-cell');
+		$(attribute1).attr('id', 'attribute1');
 		$(attribute1).html(card.attributes[0].attributeName);
 		var value1 = $("<div>");
 		$(value1).addClass('ui-block-b card-cell-5 even-cell card-value');
+		$(value1).attr('id', 'value1');
 		$(value1).html(card.attributes[0].value + ' ' + card.attributes[0].unit);
 
 		var attribute2 = $("<div>");
 		$(attribute2).addClass('ui-block-a card-cell-5');
+		$(attribute2).attr('id', 'attribute2');
 		$(attribute2).html(card.attributes[1].attributeName);
 		var value2 = $("<div>");
 		$(value2).addClass('ui-block-b card-cell-5 card-value');
+		$(value2).attr('id', 'value2');
 		$(value2).html(card.attributes[1].value + ' ' + card.attributes[1].unit);
 
 		var attribute3 = $("<div>");
 		$(attribute3).addClass('ui-block-a card-cell-5 even-cell');
+		$(attribute3).attr('id', 'attribute3');
 		$(attribute3).html(card.attributes[2].attributeName);
 		var value3 = $("<div>");
 		$(value3).addClass('ui-block-b card-cell-5 even-cell card-value');
+		$(value3).attr('id', 'value3');
 		$(value3).html(card.attributes[2].value + ' ' + card.attributes[2].unit);
 
 		var attribute4 = $("<div>");
 		$(attribute4).addClass('ui-block-a card-cell-5');
+		$(attribute4).attr('id', 'attribute4');
 		$(attribute4).html(card.attributes[3].attributeName);
 		var value4 = $("<div>");
 		$(value4).addClass('ui-block-b card-cell-5 card-value');
+		$(value4).attr('id', 'value4');
 		$(value4).html(card.attributes[3].value + ' ' + card.attributes[3].unit);
 
 		var attribute5 = $("<div>");
 		$(attribute5).addClass('ui-block-a card-cell-5 even-cell');
+		$(attribute5).attr('id', 'attribute5');
 		$(attribute5).html(card.attributes[4].attributeName);
 		var value5 = $("<div>");
 		$(value5).addClass('ui-block-b card-cell-5 even-cell card-value');
+		$(value5).attr('id', 'value5');
 		$(value5).html(card.attributes[4].value + ' ' + card.attributes[4].unit);
 
 		$(bigCell).append(attribute1, value1, attribute2, value2, attribute3, value3, attribute4, value4, attribute5, value5);
@@ -368,22 +473,21 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				duellLost(userCard, computerCard);
 			}, 1500);
 
-		}else{
-			
+		} else {
+
 			$(".computer-attribute-duell").addClass('duell-draw');
 			$(".computer-attribute-duell").children().removeClass('even-cell');
 			$("#duell_header").addClass('duell-draw');
 			$("#computer_card_number_duell").addClass('card-number-draw');
-			
+
 			$(".user-attribute-duell").addClass('duell-draw');
 			$(".user-attribute-duell").children().removeClass('even-cell');
 			$("#duell_footer").addClass('duell-draw');
 			$("#user_card_number_duell").addClass('card-number-draw');
-			
+
 			setTimeout(function() {
 				duellDraw(userCard, computerCard);
 			}, 1500);
-			
 
 		}
 	} else {
@@ -409,18 +513,18 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				duellWon(userCard, computerCard);
 			}, 1500);
 
-		}else{
-			
+		} else {
+
 			$(".computer-attribute-duell").addClass('duell-draw');
 			$(".computer-attribute-duell").children().removeClass('even-cell');
 			$("#duell_header").addClass('duell-draw');
 			$("#computer_card_number_duell").addClass('card-number-draw');
-			
+
 			$(".user-attribute-duell").addClass('duell-draw');
 			$(".user-attribute-duell").children().removeClass('even-cell');
 			$("#duell_footer").addClass('duell-draw');
 			$("#user_card_number_duell").addClass('card-number-draw');
-			
+
 			setTimeout(function() {
 				duellDraw(userCard, computerCard);
 			}, 1500);
@@ -429,22 +533,27 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 }
 
 function duellWon(userCard, computerCard) {
-	if (userHand.cards.length === game.deck.numberCards) {
-		alert("gewonnen");
+	if (computerHand.cards.length === 1) {
+		alert("CONGRATULATIONS");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
 	} else {
-		game.lastWon=players.PLAYER;
+		game.lastWon = players.PLAYER;
 		userHand.cards.splice(0, 1);
 		computerHand.cards.splice(0, 1);
 		userHand.cards.splice(userHand.cards.length, 2, userCard, computerCard);
-		
-		if(game.tableMiddle.length !== 0){
-			for(var i =0;i<game.tableMiddle.length;i++){
+
+		if (game.tableMiddle.length !== 0) {
+			for (var i = 0; i < game.tableMiddle.length; i++) {
 				userHand.cards[userHand.cards.length] = game.tableMiddle[i];
 			}
+			alert("Du hast die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
 			game.tableMiddle = [];
-			alert("Du hast die"+ game.tableMiddle.length+"Karten auf dem Tisch gewonnen");
 		}
-		
+
 		userHand.topCard = userHand.cards[0];
 		computerHand.topCard = computerHand.cards[0];
 		showTopCard();
@@ -457,22 +566,27 @@ function duellWon(userCard, computerCard) {
 }
 
 function duellLost(userCard, computerCard) {
-	if (userHand.cards.length === 0) {
-	alert("verloren");
+	if (userHand.cards.length === 1) {
+		alert("GAME OVER");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
 	} else {
-		game.lastWon=players.COMPUTER;
+		game.lastWon = players.COMPUTER;
 		userHand.cards.splice(0, 1);
 		computerHand.cards.splice(0, 1);
 		computerHand.cards.splice(computerHand.cards.length, 2, userCard, computerCard);
-		
-		if(game.tableMiddle.length !== 0){
-			for(var i =0;i<game.tableMiddle.length;i++){
+
+		if (game.tableMiddle.length !== 0) {
+			for (var i = 0; i < game.tableMiddle.length; i++) {
 				computerHand.cards[computerHand.cards.length] = game.tableMiddle[i];
 			}
-			alert("Computer hat die" + game.tableMiddle.length+"Karten auf dem Tisch gewonnen");
+			alert("Computer hat die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
 			game.tableMiddle = [];
 		}
-		
+
 		userHand.topCard = userHand.cards[0];
 		computerHand.topCard = computerHand.cards[0];
 		showComputerCard();
@@ -484,27 +598,27 @@ function duellLost(userCard, computerCard) {
 	}
 }
 
-function duellDraw(userCard,computerCard){
+function duellDraw(userCard, computerCard) {
 	game.tableMiddle[game.tableMiddle.length] = userCard;
 	game.tableMiddle[game.tableMiddle.length] = computerCard;
 	userHand.cards.splice(0, 1);
 	computerHand.cards.splice(0, 1);
 	userHand.topCard = userHand.cards[0];
 	computerHand.topCard = computerHand.cards[0];
-	
+
 	alert("Karten wurden auf den Tisch gelegt");
-	
-	if(game.lastWon === players.PLAYER){
+
+	if (game.lastWon === players.PLAYER) {
 		showTopCard();
-	}else{
+	} else {
 		showComputerCard();
 	}
-	
+
 	$.mobile.changePage("#new_game", {
-			allowSamePageTransition : true,
-			transition : "slide",
-			reverse : "true"
-		});
+		allowSamePageTransition : true,
+		transition : "slide",
+		reverse : "true"
+	});
 }
 
 function makeDecision() {

@@ -1,24 +1,23 @@
-
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    }
+	// Application Constructor
+	initialize : function() {
+		this.bindEvents();
+	},
+	bindEvents : function() {
+		document.addEventListener('deviceready', onDeviceReady, false);
+	}
 };
 
-function onDeviceReady(){
+function onDeviceReady() {
 	bindListeners();
-	console.log("ready");
+	initializeDB();
 }
 
-var bindListeners =  function() {
-    	$("h2").click(function() {
-    		window.alert("Some");
-		});
-   };
+function bindListeners() {
+	$("#start_as_deathmatch").click(startAsDeathMatch);
+	$("#actual_card_gallery").on("swipeleft",swipeLeftGallery);
+	$("#actual_card_gallery").on("swiperight",swipeRightGallery);
 
+};
 
-app.initialize();
+app.initialize(); 

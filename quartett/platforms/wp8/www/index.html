@@ -10,13 +10,16 @@
 		<link rel="stylesheet" type="text/css" href="jQuery/jquery.mobile-1.4.5.css" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/database.js"></script>
+		<script type="text/javascript" src="js/gallery.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
 		<title>quartettApp</title>
 	</head>
 	<body>
 
-		<!-- Start of first page -->
+		<!-- Start of menu page -->
 		<div data-role="page" id="menu">
 
 			<div data-role="header">
@@ -27,17 +30,16 @@
 				<div class="flex-column-menu">
 					<a href="#new_game_options" class="ui-btn">Neues Spiel</a>
 					<a href="#gallery" class="ui-btn">Galerie</a>
-					<a href="#options" class="ui-btn">Optionen</a>
 					<a href="#help" class="ui-btn">Hilfe</a>
 				</div>
 			</div>
 
-			<div data-role="footer">
+			<div data-role="footer" data-position="fixed">
 				<h1>Alpha 0.1</h1>
 			</div>
 		</div>>
-		
-		<!-- Start of second page -->
+
+		<!-- Start of new_game_options page -->
 		<div data-role="page" id="new_game_options">
 			<div data-role="header">
 				<h1>Neues Spiel</h1>
@@ -46,28 +48,141 @@
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
 					<h2>Spielmodus wählen</h2>
-					<a href="#gallery" class="ui-btn">Runden</a>
-					<a id="deathmatch" href="#options" class="ui-btn">Stiche</a>
-					<a href="#menu" class="ui-btn">Deathmatch</a>
+					<a href="#round_options" class="ui-btn">Runden</a>
+					<a href="#stab_options" class="ui-btn">Stiche</a>
+					<a id="start_as_deathmatch" href="#new_game" class="ui-btn">Deathmatch</a>
 				</div>
 			</div>
 
-		</div><!-- /page -->
-		
-		<!-- Start of third page -->
-		<div data-role="page" id="gallery">
-			<h1>NEUES SPIEL</h1>
-		</div><!-- /page -->
-		
-		<!-- Start of fourth page -->
-		<div data-role="page" id="options">
-			<h1>NEUES SPIEL</h1>
-		</div><!-- /page -->
-		
-		<!-- Start of fifth page -->
-		<div data-role="page" id="help">
-			<h1>NEUES SPIEL</h1>
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
 		</div><!-- /page -->
 
+		<!-- Start of gallery page -->
+		<div data-role="page" id="gallery">
+			<div data-role="header">
+				<h1>Galerie</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div id="gallery_deck" class="flex-column-menu">
+					<h2>Verfügbare Decks</h2>
+
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of help page -->
+		<div data-role="page" id="help">
+			<div data-role="header">
+				<h1>Hilfe</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Spielregeln</h2>
+
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of round_options page -->
+		<div data-role="page" id="round_options">
+			<div data-role="header">
+				<h1>Runden</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Wie viele Runden?</h2>
+					<div class="flex-row-menu flex-around">
+						<a href="#new_game" class="ui-btn min-width">8</a>
+						<a href="#new_game" class="ui-btn min-width">16</a>
+						<a href="#new_game" class="ui-btn min-width">32</a>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of stab_options page -->
+		<div data-role="page" id="stab_options">
+			<div data-role="header">
+				<h1>Stiche</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Wie viele Stiche?</h2>
+					<div class="flex-row-menu flex-around">
+						<a href="#new_game" class="ui-btn min-width">8</a>
+						<a href="#new_game" class="ui-btn min-width">16</a>
+						<a href="#new_game" class="ui-btn min-width">32</a>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Alpha 0.1</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of gallery-card page -->
+		<div data-role="page" id="gallery_card_page">
+			<div data-role="header">
+				<h1>Galerie</h1>
+			</div>
+
+			<div role="content" id="actual_card_gallery" class="ui-content">
+				
+			</div>
+			<div data-role="footer" class="footer">
+				<h1 id="gallery_card_footer">Alpha 0.5</h1>
+			</div>
+		</div><!-- /page -->
+		
+		<!-- Start of game page -->
+		<div data-role="page" id="new_game">
+			<div data-role="header" id="game_header">
+				<h1 id="game_header_title">Header</h1>
+				<!--<div id="computer_card_number" class="card-on-hand">16</div>-->
+			</div>
+
+			<div role="content" id="game_content" class="ui-content">
+				
+			</div>
+			<div data-role="footer" class="footer" id="game_footer">
+				<h1 id="game_footer_title">Footer</h1>
+				<div id="user_card_number_game" class="card-on-hand">16</div>
+			</div>
+		</div><!-- /page -->
+		
+		<!-- Start of duell page -->
+		<div data-role="page" id="duell_page">
+			<div data-role="header" id="duell_header">
+				<h1 id="duell_header_title">Header</h1>
+				<div id="computer_card_number_duell" class="card-on-hand">16</div>
+			</div>
+
+			<div role="content" id="duell_content" class="ui-content">
+				
+			</div>
+			<div data-role="footer" class="footer" id="duell_footer">
+				<h1 id="duell_footer_title">Footer</h1>
+				<div id="user_card_number_duell" class="card-on-hand">16</div>
+			</div>
+		</div><!-- /page -->
 	</body>
 </html>

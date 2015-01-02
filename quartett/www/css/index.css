@@ -101,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
 	align-self: center;
 	position: absolute;
 	right: 16px;
-	top:6px;
+	top: 6px;
 	/*margin-top: 32px;*/
 	line-height: 32px;
 	background-color: darkgrey;
@@ -110,9 +110,9 @@ h1, h2, h3, h4, h5, h6 {
 	color: black;
 }
 
-.card-picture{
-	width:100%;
-	height:100%;
+.card-picture {
+	width: 100%;
+	height: 100%;
 }
 
 .card-cell-big {
@@ -120,19 +120,19 @@ h1, h2, h3, h4, h5, h6 {
 	height: 50%;
 }
 
-.card-number-won{
-	background:darkgreen;
-	color:white;
+.card-number-won {
+	background: darkgreen;
+	color: white;
 }
 
-.card-number-lost{
-	background:darkred;
-	color:white;
+.card-number-lost {
+	background: darkred;
+	color: white;
 }
 
-.card-number-draw{
-	background:darkgoldenrod;
-	color:white;
+.card-number-draw {
+	background: darkgoldenrod;
+	color: white;
 }
 
 .card-cell-duell {
@@ -145,71 +145,72 @@ h1, h2, h3, h4, h5, h6 {
 	height: 100%;
 }
 
-.card-cell-5{
+.card-cell-5 {
 	height: 20%;
 	line-height: 300%;
-	font-weight:bold;
+	font-weight: bold;
 	padding-left: 6px !important;
 }
 
-.even-cell{
-	background:lightgray;
+
+.even-cell {
+	background: lightgray;
 }
 
-.card-value{
-	font-weight:normal;
+.card-value {
+	font-weight: normal;
 	/*font-style: italic;*/
 }
 
-.footer{
+.footer {
 	position: fixed !important;
-    z-index: 10;
-    bottom: 0;
-    width: 100%;
+	z-index: 10;
+	bottom: 0;
+	width: 100%;
 }
 
-.selected-attribute{
-	background:dodgerblue;
-	color:white;
+.selected-attribute {
+	background: dodgerblue;
+	color: white;
 }
 
-.user-attribute-duell{
-	position:absolute;
-	top:0px;
-	width:100%;
-	opacity:0.9;
+.user-attribute-duell {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	opacity: 0.9;
 }
 
-.computer-attribute-duell{
-	position:absolute;
-	bottom:1px;
-	width:100%;
-	opacity:0.9;
+.computer-attribute-duell {
+	position: absolute;
+	bottom: 1px;
+	width: 100%;
+	opacity: 0.9;
 }
 
-.user-cell-duell{
-	position:relative;
+.user-cell-duell {
+	position: relative;
 }
 
-.computer-cell-duell{
-	position:relative;
+.computer-cell-duell {
+	position: relative;
 }
 
-.duell-won{
-	background:lightgreen !important;
-	color:white !important;
+.duell-won {
+	background: lightgreen !important;
+	color: white !important;
 }
 
-.duell-lost{
-	background:lightcoral !important;
-	color:white !important;
+.duell-lost {
+	background: lightcoral !important;
+	color: white !important;
 }
 
-.duell-draw{
-	background:#FFFF66 !important;
-	color:gray !important;
+.duell-draw {
+	background: #FFFF66 !important;
+	color: gray !important;
 }
 
-.inactive{
-	opacity:0.7;
+.inactive {
+	opacity: 0.7;
 }
