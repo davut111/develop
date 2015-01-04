@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="js/gallery.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="js/other.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
 		<title>quartettApp</title>
 	</head>
@@ -35,7 +36,7 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>Alpha 0.1</h1>
+				<h1>DB &copy;</h1>
 			</div>
 		</div>
 
@@ -50,12 +51,12 @@
 					<h2>Spielmodus wählen</h2>
 					<a href="#round_options" class="ui-btn">Runden</a>
 					<a href="#stab_options" class="ui-btn">Stiche</a>
-					<a id="start_as_deathmatch" href="#new_game" class="ui-btn">Deathmatch</a>
+					<a id="start_as_deathmatch" href="#difficulty" class="ui-btn">Deathmatch</a>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>Alpha 0.1</h1>
+				<h1>DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
@@ -73,7 +74,7 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>Alpha 0.1</h1>
+				<h1>DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
@@ -82,16 +83,16 @@
 			<div data-role="header">
 				<h1>Hilfe</h1>
 			</div>
-
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<h2>Spielregeln</h2>
-
+					<a href="#spielregeln_page" class="ui-btn">Allgemeine Spielregeln</a>
+					<a href="#spielmodi_page" class="ui-btn">Spielmodi</a>
 				</div>
+
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>Alpha 0.1</h1>
+				<h1>DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
@@ -105,15 +106,15 @@
 				<div class="flex-column-menu">
 					<h2>Wie viele Runden?</h2>
 					<div class="flex-row-menu flex-around">
-						<a href="#new_game" class="ui-btn min-width">8</a>
-						<a href="#new_game" class="ui-btn min-width">16</a>
-						<a href="#new_game" class="ui-btn min-width">32</a>
+						<a id="start_as_rounds_8" href="#difficulty" class="ui-btn min-width">8</a>
+						<a id="start_as_rounds_16" href="#difficulty" class="ui-btn min-width">16</a>
+						<a id="start_as_rounds_32" href="#difficulty" class="ui-btn min-width">32</a>
 					</div>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>Alpha 0.1</h1>
+				<h1>DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
@@ -127,32 +128,54 @@
 				<div class="flex-column-menu">
 					<h2>Wie viele Stiche?</h2>
 					<div class="flex-row-menu flex-around">
-						<a href="#new_game" class="ui-btn min-width">8</a>
-						<a href="#new_game" class="ui-btn min-width">16</a>
-						<a href="#new_game" class="ui-btn min-width">32</a>
+						<a id="start_as_stabs_8" href="#difficulty" class="ui-btn min-width">8</a>
+						<a id="start_as_stabs_16" href="#difficulty" class="ui-btn min-width">16</a>
+						<a id="start_as_stabs_32" href="#difficulty" class="ui-btn min-width">32</a>
 					</div>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>Alpha 0.1</h1>
+				<h1>DB &copy;</h1>
+			</div>
+		</div><!-- /page -->
+
+		<!-- Start of round_options page -->
+		<div data-role="page" id="difficulty">
+			<div data-role="header">
+				<h1>Runden</h1>
+			</div>
+
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu">
+					<h2>Wie schwer?</h2>
+					<div class="flex-row-menu flex-around">
+						<a id="set_easy" href="#new_game" class="ui-btn min-width">Leicht</a>
+						<a id="set_medium"  href="#new_game" class="ui-btn min-width">Mittel</a>
+						<a id="set_hard"  href="#new_game" class="ui-btn min-width">Schwer</a>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
 		<!-- Start of gallery-card page -->
 		<div data-role="page" id="gallery_card_page">
 			<div data-role="header">
-				<h1>Galerie</h1>
+				<h1 id="gallery_card_header">Galerie</h1>
 			</div>
 
 			<div role="content" id="actual_card_gallery" class="ui-content">
-				
+
 			</div>
 			<div data-role="footer" class="footer">
 				<h1 id="gallery_card_footer">Alpha 0.5</h1>
 			</div>
 		</div><!-- /page -->
-		
+
 		<!-- Start of game page -->
 		<div data-role="page" id="new_game">
 			<div data-role="header" id="game_header">
@@ -161,28 +184,77 @@
 			</div>
 
 			<div role="content" id="game_content" class="ui-content">
-				
+
 			</div>
 			<div data-role="footer" class="footer" id="game_footer">
 				<h1 id="game_footer_title">Footer</h1>
-				<div id="user_card_number_game" class="card-on-hand">16</div>
+				<div id="user_card_number_game" class="card-on-hand">
+					16
+				</div>
 			</div>
 		</div><!-- /page -->
-		
+
 		<!-- Start of duell page -->
 		<div data-role="page" id="duell_page">
 			<div data-role="header" id="duell_header">
 				<h1 id="duell_header_title">Header</h1>
-				<div id="computer_card_number_duell" class="card-on-hand">16</div>
+				<div id="computer_card_number_duell" class="card-on-hand">
+					16
+				</div>
 			</div>
 
 			<div role="content" id="duell_content" class="ui-content">
-				
+
 			</div>
 			<div data-role="footer" class="footer" id="duell_footer">
 				<h1 id="duell_footer_title">Footer</h1>
-				<div id="user_card_number_duell" class="card-on-hand">16</div>
+				<div id="user_card_number_duell" class="card-on-hand">
+					16
+				</div>
 			</div>
 		</div><!-- /page -->
+
+		<!--Start of Spielregeln page -->
+		<div data-role="page" id="spielregeln_page">
+			<div data-role="header">
+				<h1>Spielregeln</h1>
+			</div>
+			<div role="main" id="spielregeln" class="ui-content">
+				<label class="help"> Der Spieler erhält zu Beginn 16 von 32 Spielkarten.
+					Die Aufteilung ist zufällig. Hierbei sieht der Spieler immer nur die oberste Spielkarte.
+					Der Spieler darf auch die Partie beginnen und wählt ein Attribut von seiner Karte.
+					Das Attribut wird mit dem Attribut der obersten Spielkarte des Computers verglichen.
+					Der Spieler, dessen Attribut den höheren bzw besseren Wert hat,gewinnt die Runde und erhält beide Karten.
+					Der Gewinner der letzten Runde ist immer an der Reihe und darf ein weiteres Attribut wählen.
+					Wenn beide Attribute denselben Wert haben, wird eine neue Runde gestartet.
+					Wer diese Runde gewinnt erhält alle vier Karten. </label>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>DB &copy;</h1>
+			</div>
+		</div>
+		<!-- /page-->
+
+		<!--Start of Spielmodi page -->
+		<div data-role="page" id="spielmodi_page">
+			<div data-role="header">
+				<h1>Spielmodi</h1>
+			</div>
+			<div role="main" class="ui-content" >
+				<label class="help"> Runden: In diesem Spielmodus wird nach Runden (je nach Auswahl) gespielt.
+					Das Spiel endet sobald die Runden gespielt wurden.
+					Der Gewinner des Spieles ist derjenige mit den meisten Karten. </label >
+				<label class="help"> Stiche: In diesem Spielmodus wird nach Stichen gespielt.
+					Ein Stich ist eine gewonnene Runde.
+					Wer zuerst 8,16 oder 32 Stiche macht hat gewonnen </label>
+				<label class="help"> Deathmatch: In diesem Spielmodus wird solange gespielt bis ein Spieler alle Karten des Gegners hat. </label>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1>DB &copy;</h1>
+			</div>
+		</div>
+		<!-- /page-->
 	</body>
 </html>

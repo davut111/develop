@@ -21,6 +21,7 @@ function loadCardFromDeckId(deckId){
 	var numberAttributes = database.decks[gallery.actDeckGallery].numberAttributes;
 	$("#actual_card_gallery").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/'+card.cardPicture+'" /></div>');
 	$("#gallery_card_footer").html(card.cardName);
+	$("#gallery_card_header").html("Galerie ("+(gallery.actCardGallery+1)+"/"+database.decks[gallery.actDeckGallery].cards.length+")");
 	switch(numberAttributes){
 		case 3:
 			$("#actual_card_gallery").append('<div class="ui-grid-a card-cell-big">'+

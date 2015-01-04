@@ -1,6 +1,6 @@
 var game = {
 	mode : null,
-	options : null,
+	options: null,
 	deck : null,
 	difficulty : null,
 	tableMiddle : [],
@@ -15,8 +15,8 @@ var modes = {
 
 var difficulties = {
 	EASY : "easy",
-	NORMAL : "normal",
-	DIFFICULT : "difficult"
+	MEDIUM : "medium",
+	HARD : "hard"
 };
 
 var players = {
@@ -34,12 +34,12 @@ var computerHand = {
 	topCard : null
 };
 
-function initGame(mode, options, deck, difficulty) {
+function initGame(mode, options, deck) {
 	game.mode = mode;
 	game.options = options;
 	game.deck = deck;
-	game.difficulty = difficulty;
-
+	userHand.cards = [];
+	
 	var numberCards = deck.numberCards;
 	var restCards = 31;
 	for (var i = 0; i < numberCards / 2; i++) {
@@ -57,17 +57,86 @@ function initGame(mode, options, deck, difficulty) {
 
 }
 
+function setEasy(){
+	game.difficulty = difficulties.EASY;
+}
+
+function setMedium(){
+	game.difficulty = difficulties.MEDIUM;
+}
+
+function setHard(){
+	game.difficulty = difficulties.HARD;
+}
+
 function startAsDeathMatch() {
+	
+	$("#user_card_number_game").show();
+	$("#user_card_number_duell").show();
+	$("#computer_card_number_duell").show();
+	
 	var actualDeck;
 	for (var i = 0; i < database.decks.length; i++) {
 		if (database.decks[i].actualDeck === 1) {
 			actualDeck = database.decks[i];
 		}
 	}
-	initGame(modes.DEATHMATCH, null, actualDeck, difficulties.NORMAL);
+	initGame(modes.DEATHMATCH, null, actualDeck);
+}
+
+function startAsRounds(rounds){
+	
+	$("#user_card_number_game").show();
+	$("#user_card_number_duell").show();
+	$("#computer_card_number_duell").show();
+	
+	var actualDeck;
+	for (var i = 0; i < database.decks.length; i++) {
+		if (database.decks[i].actualDeck === 1) {
+			actualDeck = database.decks[i];
+		}
+	}
+	
+	var options = {
+		roundsToPlay : rounds,
+		roundsPlayed: 0
+	};
+	
+	initGame(modes.ROUNDS, options, actualDeck);
+
+	
+}
+
+function startAsStabs(stabs){
+	$("#user_card_number_game").hide();
+	$("#user_card_number_duell").hide();
+	$("#computer_card_number_duell").hide();
+	var actualDeck;
+	for (var i = 0; i < database.decks.length; i++) {
+		if (database.decks[i].actualDeck === 1) {
+			actualDeck = database.decks[i];
+		}
+	}
+	
+	var options = {
+		targetStabs : stabs,
+		userStabs: 0,
+		computerStabs:0
+	};
+	
+	initGame(modes.STABS, options, actualDeck);
+	
 }
 
 function showTopCard() {
+	if(game.mode == modes.DEATHMATCH){
+		$("#game_header_title").html('Deine Reihe');
+	}else if(game.mode == modes.ROUNDS){
+		$("#game_header_title").html('Runde '+(game.options.roundsPlayed+1));
+	}else if(game.mode == modes.STABS){
+		$("#game_header_title").html('Stand: '+game.options.userStabs+' - '+game.options.computerStabs);
+	}
+	console.log(game);
 	$("#game_content").children().remove();
 	var card = userHand.topCard;
 	var numberAttributes = game.deck.numberAttributes;
@@ -75,11 +144,7 @@ function showTopCard() {
 	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/' + card.cardPicture + '" /></div>');
 	$("#game_content").removeClass('inactive');
 	$("#game_footer_title").html(card.cardName);
-	$("#game_header_title").html('Deine Reihe');
 	$("#user_card_number_game").html(userCardsCount);
-
-	console.log(userHand);
-	console.log(computerHand);
 
 	switch(numberAttributes) {
 	case 3:
@@ -272,17 +337,22 @@ function showTopCard() {
 
 function showComputerCard() {
 	$("#game_content").children().remove();
+	
+	if(game.mode == modes.DEATHMATCH){
+		$("#game_header_title").html('Gegner');
+	}else if(game.mode == modes.ROUNDS){
+		$("#game_header_title").html('Runde '+(game.options.roundsPlayed+1));
+	}else if(game.mode == modes.STABS){
+		$("#game_header_title").html('Stand: '+game.options.userStabs+' - '+game.options.computerStabs);
+	}
+	
 	var card = computerHand.topCard;
 	var numberAttributes = game.deck.numberAttributes;
 	var computerCardsCount = computerHand.cards.length;
 	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/' + card.cardPicture + '" /></div>');
 	$("#game_content").addClass('inactive');
 	$("#game_footer_title").html(card.cardName);
-	$("#game_header_title").html('Computer');
 	$("#user_card_number_game").html(computerCardsCount);
-
-	console.log(userHand);
-	console.log(computerHand);
 
 	var bigCell = $("<div>");
 	$(bigCell).addClass('ui-grid-a card-cell-big');
@@ -459,7 +529,13 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 			$("#user_card_number_duell").addClass('card-number-won');
 
 			setTimeout(function() {
-				duellWon(userCard, computerCard);
+				if(game.mode == modes.DEATHMATCH){
+					duellWon(userCard, computerCard);
+				}else if(game.mode == modes.ROUNDS){
+					roundWon(userCard, computerCard);
+				}else if(game.mode == modes.STABS){
+					stabWon(userCard, computerCard);
+				}
 			}, 1500);
 
 		} else if (computerValue > userValue) {
@@ -470,7 +546,13 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 			$("#computer_card_number_duell").addClass('card-number-lost');
 
 			setTimeout(function() {
-				duellLost(userCard, computerCard);
+				if(game.mode == modes.DEATHMATCH){
+					duellLost(userCard, computerCard);
+				}else if(game.mode == modes.ROUNDS){
+					roundLost(userCard, computerCard);
+				}else if(game.mode == modes.STABS){
+					stabLost(userCard, computerCard);
+				}
 			}, 1500);
 
 		} else {
@@ -486,7 +568,13 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 			$("#user_card_number_duell").addClass('card-number-draw');
 
 			setTimeout(function() {
-				duellDraw(userCard, computerCard);
+				if(game.mode == modes.DEATHMATCH){
+					duellDraw(userCard, computerCard);
+				}else if(game.mode == modes.ROUNDS){
+					roundDraw(userCard, computerCard);
+				}else if(game.mode == modes.STABS){
+					stabDraw(userCard, computerCard);
+				}
 			}, 1500);
 
 		}
@@ -499,7 +587,13 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 			$("#computer_card_number_duell").addClass('card-number-lost');
 
 			setTimeout(function() {
-				duellLost(userCard, computerCard);
+				if(game.mode == modes.DEATHMATCH){
+					duellLost(userCard, computerCard);
+				}else if(game.mode == modes.ROUNDS){
+					roundLost(userCard, computerCard);
+				}else if(game.mode == modes.STABS){
+					stabLost(userCard, computerCard);
+				}
 			}, 1500);
 
 		} else if (computerValue > userValue) {
@@ -510,7 +604,13 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 			$("#user_card_number_duell").addClass('card-number-won');
 
 			setTimeout(function() {
-				duellWon(userCard, computerCard);
+				if(game.mode == modes.DEATHMATCH){
+					duellWon(userCard, computerCard);
+				}else if(game.mode == modes.ROUNDS){
+					roundWon(userCard, computerCard);
+				}else if(game.mode == modes.STABS){
+					stabWon(userCard, computerCard);
+				}
 			}, 1500);
 
 		} else {
@@ -526,7 +626,13 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 			$("#user_card_number_duell").addClass('card-number-draw');
 
 			setTimeout(function() {
-				duellDraw(userCard, computerCard);
+				if(game.mode == modes.DEATHMATCH){
+					duellDraw(userCard, computerCard);
+				}else if(game.mode == modes.ROUNDS){
+					roundDraw(userCard, computerCard);
+				}else if(game.mode == modes.STABS){
+					stabDraw(userCard, computerCard);
+				}
 			}, 1500);
 		}
 	}
@@ -550,7 +656,11 @@ function duellWon(userCard, computerCard) {
 			for (var i = 0; i < game.tableMiddle.length; i++) {
 				userHand.cards[userHand.cards.length] = game.tableMiddle[i];
 			}
-			alert("Du hast die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			if(game.mode != modes.STABS){
+				alert("Du hast die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			}else{
+				alert("Du hast einen " + ((game.tableMiddle.length/2)+1) + " -fachen Stich erzielt");
+			}
 			game.tableMiddle = [];
 		}
 
@@ -583,7 +693,11 @@ function duellLost(userCard, computerCard) {
 			for (var i = 0; i < game.tableMiddle.length; i++) {
 				computerHand.cards[computerHand.cards.length] = game.tableMiddle[i];
 			}
-			alert("Computer hat die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			if(game.mode != modes.STABS){
+				alert("Dein Gegner hat die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			}else{
+				alert("Dein Gegner hat einen " + ((game.tableMiddle.length/2)+1) + " -fachen Stich erzielt");
+			}
 			game.tableMiddle = [];
 		}
 
@@ -599,36 +713,364 @@ function duellLost(userCard, computerCard) {
 }
 
 function duellDraw(userCard, computerCard) {
-	game.tableMiddle[game.tableMiddle.length] = userCard;
-	game.tableMiddle[game.tableMiddle.length] = computerCard;
-	userHand.cards.splice(0, 1);
-	computerHand.cards.splice(0, 1);
-	userHand.topCard = userHand.cards[0];
-	computerHand.topCard = computerHand.cards[0];
-
-	alert("Karten wurden auf den Tisch gelegt");
-
-	if (game.lastWon === players.PLAYER) {
-		showTopCard();
-	} else {
-		showComputerCard();
+	if(userHand.cards.length === 1 && computerHand.cards.length >1) {
+		alert("GAME OVER");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else if(computerHand.cards.length === 1 && userHand.cards.length >1){
+		alert("CONGRATULATIONS");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else if(computerHand.cards.length === 1 && userHand.cards.length === 1){
+		alert("DRAW");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else{
+		game.tableMiddle[game.tableMiddle.length] = userCard;
+		game.tableMiddle[game.tableMiddle.length] = computerCard;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		userHand.topCard = userHand.cards[0];
+		computerHand.topCard = computerHand.cards[0];
+	
+		alert("Karten wurden auf den Tisch gelegt");
+	
+		if (game.lastWon === players.PLAYER) {
+			showTopCard();
+		} else {
+			showComputerCard();
+		}
+	
+		$.mobile.changePage("#new_game", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
 	}
+}
 
-	$.mobile.changePage("#new_game", {
-		allowSamePageTransition : true,
-		transition : "slide",
-		reverse : "true"
-	});
+function roundWon(userCard, computerCard) {
+		game.lastWon = players.PLAYER;
+		game.options.roundsPlayed++;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		userHand.cards.splice(userHand.cards.length, 2, userCard, computerCard);
+
+		if (game.tableMiddle.length !== 0) {
+			for (var i = 0; i < game.tableMiddle.length; i++) {
+				userHand.cards[userHand.cards.length] = game.tableMiddle[i];
+			}
+			alert("Du hast die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			game.tableMiddle = [];
+		}
+		
+		if (computerHand.cards.length === 0 || (game.options.roundsPlayed == game.options.roundsToPlay && userHand.cards.length > computerHand.cards.length)) {
+			alert("CONGRATULATIONS");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}else{
+			userHand.topCard = userHand.cards[0];
+			computerHand.topCard = computerHand.cards[0];
+			showTopCard();
+			$.mobile.changePage("#new_game", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}
+}
+
+function roundLost(userCard, computerCard) {
+		game.lastWon = players.COMPUTER;
+		game.options.roundsPlayed++;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		computerHand.cards.splice(computerHand.cards.length, 2, userCard, computerCard);
+
+		if (game.tableMiddle.length !== 0) {
+			for (var i = 0; i < game.tableMiddle.length; i++) {
+				computerHand.cards[computerHand.cards.length] = game.tableMiddle[i];
+			}
+			alert("Computer hat die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			game.tableMiddle = [];
+		}
+		
+		if (userHand.cards.length === 0 || (game.options.roundsPlayed == game.options.roundsToPlay && computerHand.cards.length > userHand.cards.length)) {
+			alert("GAME OVER");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}else{
+
+			userHand.topCard = userHand.cards[0];
+			computerHand.topCard = computerHand.cards[0];
+			showComputerCard();
+			$.mobile.changePage("#new_game", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}
+}
+
+function roundDraw(userCard, computerCard) {
+	game.options.roundsPlayed++;
+	if((userHand.cards.length === 1 && computerHand.cards.length >1) || (game.options.roundsPlayed == game.options.roundsToPlay && computerHand.cards.length > userHand.cards.length)) {
+		alert("GAME OVER");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else if((computerHand.cards.length === 1 && userHand.cards.length >1) || (game.options.roundsPlayed == game.options.roundsToPlay && computerHand.cards.length < userHand.cards.length)){
+		alert("CONGRATULATIONS");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else if((computerHand.cards.length === 1 && userHand.cards.length === 1) || (game.options.roundsPlayed == game.options.roundsToPlay && computerHand.cards.length == userHand.cards.length)){
+		alert("DRAW");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else{
+		game.tableMiddle[game.tableMiddle.length] = userCard;
+		game.tableMiddle[game.tableMiddle.length] = computerCard;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		userHand.topCard = userHand.cards[0];
+		computerHand.topCard = computerHand.cards[0];
+	
+		alert("Karten wurden auf den Tisch gelegt");
+	
+		if (game.lastWon === players.PLAYER) {
+			showTopCard();
+		} else {
+			showComputerCard();
+		}
+	
+		$.mobile.changePage("#new_game", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}
+}
+
+function stabWon(userCard, computerCard) {
+		game.lastWon = players.PLAYER;
+		game.options.userStabs++;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		userHand.cards.splice(userHand.cards.length, 2, userCard, computerCard);
+
+		if (game.tableMiddle.length !== 0) {
+			for (var i = 0; i < game.tableMiddle.length; i++) {
+				userHand.cards[userHand.cards.length] = game.tableMiddle[i];
+			}
+			alert("Du hast die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			game.options.userStabs += (game.tableMiddle.length/2);
+			game.tableMiddle = [];
+		}
+		
+		if (computerHand.cards.length === 0 || (game.options.userStabs == game.options.targetStabs)) {
+			alert("CONGRATULATIONS");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}else{
+			userHand.topCard = userHand.cards[0];
+			computerHand.topCard = computerHand.cards[0];
+			showTopCard();
+			$.mobile.changePage("#new_game", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}
+}
+
+function stabLost(userCard, computerCard) {
+		game.lastWon = players.COMPUTER;
+		game.options.computerStabs++;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		computerHand.cards.splice(computerHand.cards.length, 2, userCard, computerCard);
+
+		if (game.tableMiddle.length !== 0) {
+			for (var i = 0; i < game.tableMiddle.length; i++) {
+				computerHand.cards[computerHand.cards.length] = game.tableMiddle[i];
+			}
+			alert("Computer hat die " + game.tableMiddle.length + " Karten auf dem Tisch gewonnen");
+			game.options.computerStabs += (game.tableMiddle.length/2);
+			game.tableMiddle = [];
+		}
+		
+		if (userHand.cards.length === 0 || (game.options.computerStabs == game.options.targetStabs)) {
+			alert("GAME OVER");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}else{
+
+			userHand.topCard = userHand.cards[0];
+			computerHand.topCard = computerHand.cards[0];
+			showComputerCard();
+			$.mobile.changePage("#new_game", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}
+}
+
+function stabDraw(userCard, computerCard) {
+	if(userHand.cards.length === 1 && computerHand.cards.length >1) {
+		alert("GAME OVER");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else if(computerHand.cards.length === 1 && userHand.cards.length >1){
+		alert("CONGRATULATIONS");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else if(computerHand.cards.length === 1 && userHand.cards.length === 1){
+		alert("DRAW");
+		$.mobile.changePage("#menu", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}else{
+		game.tableMiddle[game.tableMiddle.length] = userCard;
+		game.tableMiddle[game.tableMiddle.length] = computerCard;
+		userHand.cards.splice(0, 1);
+		computerHand.cards.splice(0, 1);
+		userHand.topCard = userHand.cards[0];
+		computerHand.topCard = computerHand.cards[0];
+	
+		alert("Karten wurden auf den Tisch gelegt");
+	
+		if (game.lastWon === players.PLAYER) {
+			showTopCard();
+		} else {
+			showComputerCard();
+		}
+	
+		$.mobile.changePage("#new_game", {
+			allowSamePageTransition : true,
+			transition : "slide",
+			reverse : "true"
+		});
+	}
 }
 
 function makeDecision() {
 	var numberAttributes = game.deck.numberAttributes;
-	var random = Math.floor((Math.random() * numberAttributes));
-	var selectorAttr = '#attribute' + (random + 1);
-	var selectorVal = '#value' + (random + 1);
-	$(selectorAttr).add(selectorVal).addClass('selected-attribute');
-
-	setTimeout(function() {
-		loadDuellPage(random);
-	}, 1500);
+	if(game.difficulty === difficulties.MEDIUM){
+		var random = Math.floor((Math.random() * numberAttributes));
+		var selectorAttr = '#attribute' + (random + 1);
+		var selectorVal = '#value' + (random + 1);
+		$(selectorAttr).add(selectorVal).addClass('selected-attribute');
+	
+		setTimeout(function() {
+			loadDuellPage(random);
+		}, 1500);
+	}else if(game.difficulty === difficulties.HARD){
+		var winnerAttributes = [];
+		for(var i=0;i<numberAttributes;i++){
+			var currAttr = computerHand.topCard.attributes[i];
+			if(currAttr.higherValue == 1){
+				if(currAttr.value >= currAttr.average){
+					winnerAttributes[winnerAttributes.length] = i;
+				}
+			}else{
+				if(currAttr.value < currAttr.average){
+					winnerAttributes[winnerAttributes.length] = i;
+				}
+			}
+		}
+		
+		if(winnerAttributes.length !== 0){
+			var random =Math.floor((Math.random() * winnerAttributes.length));
+			var selectedAttributeIndex = winnerAttributes[random];	
+			var selectorAttr = '#attribute' + (selectedAttributeIndex + 1);
+			var selectorVal = '#value' + (selectedAttributeIndex + 1);
+			$(selectorAttr).add(selectorVal).addClass('selected-attribute');
+		
+			setTimeout(function() {
+				loadDuellPage(selectedAttributeIndex);
+			}, 1500);
+		}else{
+			var random = Math.floor((Math.random() * numberAttributes));
+			var selectorAttr = '#attribute' + (random + 1);
+			var selectorVal = '#value' + (random + 1);
+			$(selectorAttr).add(selectorVal).addClass('selected-attribute');
+		
+			setTimeout(function() {
+				loadDuellPage(random);
+			}, 1500);
+		}
+	}else if(game.difficulty === difficulties.EASY){
+		var winnerAttributes = [];
+		for(var i=0;i<numberAttributes;i++){
+			var currAttr = computerHand.topCard.attributes[i];
+			if(currAttr.higherValue == 1){
+				if(currAttr.value <= currAttr.average){
+					winnerAttributes[winnerAttributes.length] = i;
+				}
+			}else{
+				if(currAttr.value > currAttr.average){
+					winnerAttributes[winnerAttributes.length] = i;
+				}
+			}
+		}
+		
+		if(winnerAttributes.length !== 0){
+			var random =Math.floor((Math.random() * winnerAttributes.length));
+			var selectedAttributeIndex = winnerAttributes[random];	
+			var selectorAttr = '#attribute' + (selectedAttributeIndex + 1);
+			var selectorVal = '#value' + (selectedAttributeIndex + 1);
+			$(selectorAttr).add(selectorVal).addClass('selected-attribute');
+		
+			setTimeout(function() {
+				loadDuellPage(selectedAttributeIndex);
+			}, 1500);
+		}else{
+			var random = Math.floor((Math.random() * numberAttributes));
+			var selectorAttr = '#attribute' + (random + 1);
+			var selectorVal = '#value' + (random + 1);
+			$(selectorAttr).add(selectorVal).addClass('selected-attribute');
+		
+			setTimeout(function() {
+				loadDuellPage(random);
+			}, 1500);
+		}
+	}
 }
