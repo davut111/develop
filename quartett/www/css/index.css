@@ -2,7 +2,10 @@
 	display: box;
 	display: flex;
 	min-height: 100%;
+	-webkit-box-orient:vertical;
+	-webkit-flex-direction: column;
 	flex-direction: column;
+	-webkit-justify-content: center;
 	justify-content: center;
 }
 
@@ -10,6 +13,8 @@
 	display: box;
 	display: flex;
 	width: 100%;
+	-webkit-box-orient:horizontal;
+	-webkit-flex-direction: row;
 	flex-direction: row;
 }
 
@@ -37,6 +42,7 @@
 
 .gallery-preview {
 	height: 100px;
+	padding: 4px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -52,14 +58,28 @@ h1, h2, h3, h4, h5, h6 {
 	left: 0;
 }
 
+.dialog {
+	position: relative !important;
+	top: 0px;
+	bottom: 0px;
+}
+
 .min-width {
 	min-width: 45px;
+}
+
+.hide{
+	display: none;
 }
 
 .deck-icon {
 	width: 100px !important;
 	height: 100px !important;
 	border: solid 1px;
+}
+
+#game_content{
+	height:100%;
 }
 
 .gallery-preview {
@@ -179,6 +199,14 @@ h1, h2, h3, h4, h5, h6 {
 	top: 0px;
 	width: 100%;
 	opacity: 0.9;
+}
+
+.active-deck{
+	background:lightblue;
+}
+
+.great-header{
+	width:50%;
 }
 
 .computer-attribute-duell {

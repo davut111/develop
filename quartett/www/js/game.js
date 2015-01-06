@@ -34,7 +34,30 @@ var computerHand = {
 	topCard : null
 };
 
+function undoGame(){
+ game = {
+	mode : null,
+	options: null,
+	deck : null,
+	difficulty : null,
+	tableMiddle : [],
+	lastWon : null
+};
+
+ userHand = {
+	cards : [],
+	topCard : null
+};
+
+ computerHand = {
+	cards : [],
+	topCard : null
+};
+
+}
+
 function initGame(mode, options, deck) {
+	console.log(database.decks[0]);
 	game.mode = mode;
 	game.options = options;
 	game.deck = deck;
@@ -70,7 +93,6 @@ function setHard(){
 }
 
 function startAsDeathMatch() {
-	
 	$("#user_card_number_game").show();
 	$("#user_card_number_duell").show();
 	$("#computer_card_number_duell").show();
@@ -78,7 +100,7 @@ function startAsDeathMatch() {
 	var actualDeck;
 	for (var i = 0; i < database.decks.length; i++) {
 		if (database.decks[i].actualDeck === 1) {
-			actualDeck = database.decks[i];
+			actualDeck = jQuery.extend(true, {}, database.decks[i]);
 		}
 	}
 	initGame(modes.DEATHMATCH, null, actualDeck);
@@ -93,7 +115,7 @@ function startAsRounds(rounds){
 	var actualDeck;
 	for (var i = 0; i < database.decks.length; i++) {
 		if (database.decks[i].actualDeck === 1) {
-			actualDeck = database.decks[i];
+			actualDeck = jQuery.extend(true, {}, database.decks[i]);
 		}
 	}
 	
@@ -101,10 +123,7 @@ function startAsRounds(rounds){
 		roundsToPlay : rounds,
 		roundsPlayed: 0
 	};
-	
-	initGame(modes.ROUNDS, options, actualDeck);
-
-	
+	initGame(modes.ROUNDS, options, actualDeck);	
 }
 
 function startAsStabs(stabs){
@@ -114,7 +133,7 @@ function startAsStabs(stabs){
 	var actualDeck;
 	for (var i = 0; i < database.decks.length; i++) {
 		if (database.decks[i].actualDeck === 1) {
-			actualDeck = database.decks[i];
+			actualDeck = jQuery.extend(true, {}, database.decks[i]);
 		}
 	}
 	
@@ -123,9 +142,7 @@ function startAsStabs(stabs){
 		userStabs: 0,
 		computerStabs:0
 	};
-	
 	initGame(modes.STABS, options, actualDeck);
-	
 }
 
 function showTopCard() {
@@ -136,13 +153,17 @@ function showTopCard() {
 	}else if(game.mode == modes.STABS){
 		$("#game_header_title").html('Stand: '+game.options.userStabs+' - '+game.options.computerStabs);
 	}
-	console.log(game);
+	console.log(userHand);
+	console.log(computerHand);
+
 	$("#game_content").children().remove();
 	var card = userHand.topCard;
 	var numberAttributes = game.deck.numberAttributes;
 	var userCardsCount = userHand.cards.length;
 	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/' + card.cardPicture + '" /></div>');
 	$("#game_content").removeClass('inactive');
+	$("#user_card_number_game").removeClass('inactive');
+	$("#game_header_title").removeClass('inactive');
 	$("#game_footer_title").html(card.cardName);
 	$("#user_card_number_game").html(userCardsCount);
 
@@ -352,7 +373,10 @@ function showComputerCard() {
 	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/' + card.cardPicture + '" /></div>');
 	$("#game_content").addClass('inactive');
 	$("#game_footer_title").html(card.cardName);
+	$("#game_footer_title").addClass('inactive');
 	$("#user_card_number_game").html(computerCardsCount);
+	$("#user_card_number_game").addClass('inactive');
+	$("#game_header_title").addClass('inactive');
 
 	var bigCell = $("<div>");
 	$(bigCell).addClass('ui-grid-a card-cell-big');
@@ -457,7 +481,7 @@ function showComputerCard() {
 
 	setTimeout(function() {
 		makeDecision();
-	}, 1500);
+	}, 2000);
 
 }
 
@@ -510,7 +534,7 @@ function loadDuellPage(attributeIndex) {
 	});
 	setTimeout(function() {
 		handleDuell(userCard, computerCard, attributeIndex);
-	}, 1500);
+	}, 2000);
 }
 
 function handleDuell(userCard, computerCard, attributeIndex) {
@@ -536,7 +560,7 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				}else if(game.mode == modes.STABS){
 					stabWon(userCard, computerCard);
 				}
-			}, 1500);
+			}, 2000);
 
 		} else if (computerValue > userValue) {
 
@@ -553,7 +577,7 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				}else if(game.mode == modes.STABS){
 					stabLost(userCard, computerCard);
 				}
-			}, 1500);
+			}, 2000);
 
 		} else {
 
@@ -575,7 +599,7 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				}else if(game.mode == modes.STABS){
 					stabDraw(userCard, computerCard);
 				}
-			}, 1500);
+			}, 2000);
 
 		}
 	} else {
@@ -594,7 +618,7 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				}else if(game.mode == modes.STABS){
 					stabLost(userCard, computerCard);
 				}
-			}, 1500);
+			}, 2000);
 
 		} else if (computerValue > userValue) {
 
@@ -611,7 +635,7 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				}else if(game.mode == modes.STABS){
 					stabWon(userCard, computerCard);
 				}
-			}, 1500);
+			}, 2000);
 
 		} else {
 
@@ -633,7 +657,7 @@ function handleDuell(userCard, computerCard, attributeIndex) {
 				}else if(game.mode == modes.STABS){
 					stabDraw(userCard, computerCard);
 				}
-			}, 1500);
+			}, 2000);
 		}
 	}
 }
@@ -807,7 +831,7 @@ function roundLost(userCard, computerCard) {
 			game.tableMiddle = [];
 		}
 		
-		if (userHand.cards.length === 0 || (game.options.roundsPlayed == game.options.roundsToPlay && computerHand.cards.length > userHand.cards.length)) {
+		if (userHand.cards.length === 0 || (game.options.roundsPlayed == game.options.roundsToPlay && userHand.cards.length < computerHand.cards.length)) {
 			alert("GAME OVER");
 			$.mobile.changePage("#menu", {
 				allowSamePageTransition : true,
@@ -1001,7 +1025,7 @@ function makeDecision() {
 	
 		setTimeout(function() {
 			loadDuellPage(random);
-		}, 1500);
+		}, 2000);
 	}else if(game.difficulty === difficulties.HARD){
 		var winnerAttributes = [];
 		for(var i=0;i<numberAttributes;i++){
@@ -1026,7 +1050,7 @@ function makeDecision() {
 		
 			setTimeout(function() {
 				loadDuellPage(selectedAttributeIndex);
-			}, 1500);
+			}, 2000);
 		}else{
 			var random = Math.floor((Math.random() * numberAttributes));
 			var selectorAttr = '#attribute' + (random + 1);
@@ -1035,7 +1059,7 @@ function makeDecision() {
 		
 			setTimeout(function() {
 				loadDuellPage(random);
-			}, 1500);
+			}, 2000);
 		}
 	}else if(game.difficulty === difficulties.EASY){
 		var winnerAttributes = [];
@@ -1061,7 +1085,7 @@ function makeDecision() {
 		
 			setTimeout(function() {
 				loadDuellPage(selectedAttributeIndex);
-			}, 1500);
+			}, 2000);
 		}else{
 			var random = Math.floor((Math.random() * numberAttributes));
 			var selectorAttr = '#attribute' + (random + 1);
@@ -1070,7 +1094,7 @@ function makeDecision() {
 		
 			setTimeout(function() {
 				loadDuellPage(random);
-			}, 1500);
+			}, 2000);
 		}
 	}
 }
