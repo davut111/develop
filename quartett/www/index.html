@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="js/database.js"></script>
 		<script type="text/javascript" src="js/gallery.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript" src="js/createDeck.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/other.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
@@ -307,38 +308,43 @@
 				<h1 class="great-header">Erstelle Deck (1/3)</h1>
 			</div>
 			<div role="main" class="ui-content" >
-				<!--Haburaya yeni deck geliy-->
-				<table data-role="table" id="my-table" data-mode="reflow"  >
-					<thead >
-						<tr >
-							<th >Deckname</th>
-							<th>Kartenanzahl</th>
-							<th>Attributenanzahl</th>
+				<div class="flex-column-menu">
+					<table data-role="table" id="my-table" data-mode="reflow"  >
+						<thead >
+							<tr >
+								<th>Deckname</th>
+								<th>Decktyp</th>
+								<th>Kartenanzahl</th>
+								<th>Attributenanzahl</th>
 
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th>
-							<input type="text" class="formular" data-mini="true" >
-							</th>
-							<td >
-							<select name="select-choice-min" id="select-choice-min" data-mini="true">
-								<option value="8">8 Karten</option>
-								<option value="16">16 Karten</option>
-								<option value="32">32 Karten</option>
-							</select></td>
-							<td>
-							<select name="select-choice-min" id="select-choice-min" data-mini="true">
-								<option value="3">3 Attribute</option>
-								<option value="4">4 Attribute</option>
-								<option value="5"> 5 Attribute</option>
-							</select></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+								<input id="deckName" placeholder="z.B. Meine Lieblingsautos" type="text" class="formular" data-mini="true" >
+								</td>
+								<td>
+								<input id="deckType" placeholder="z.B. Auto" type="text" class="formular" data-mini="true" >
+								</td>
+								<td >
+								<select name="select-choice-min" id="select-choice-card" data-mini="true">
+									<option value="16">16 Karten</option>
+									<option value="24">24 Karten</option>
+									<option value="32">32 Karten</option>
+								</select></td>
+								<td>
+								<select name="select-choice-min" id="select-choice-attribute" data-mini="true">
+									<option value="3">3 Attribute</option>
+									<option value="4">4 Attribute</option>
+									<option value="5">5 Attribute</option>
+								</select></td>
 
-						</tr>
-					</tbody>
-				</table>
-				<a href="#new_deck_page_second" class="ui-btn">Weiter</a>
+							</tr>
+						</tbody>
+					</table>
+					<a href="#new_deck_page_second" data-transition="slide" id="new_deck_button_next_first" class="ui-btn">Weiter</a>
+				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
@@ -352,9 +358,10 @@
 			<div data-role="header">
 				<h1 class="great-header">Erstelle Deck (2/3)</h1>
 			</div>
-			<div role="main" class="ui-content" >
-				<!--Haburaya yeni deck geliy-->
-				<a href="#new_deck_page_third" class="ui-btn">Weiter</a>
+			<div role="main" class="ui-content">
+				<div class="flex-column-menu" id="new_deck_page_second_content">
+					<a href="#" id="new_deck_button_next_second" class="ui-btn">Weiter</a>
+				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
@@ -369,12 +376,17 @@
 				<h1 class="great-header">Erstelle Deck (3/3)</h1>
 			</div>
 			<div role="main" class="ui-content" >
-				<!--Haburaya yeni deck geliy-->
-				<a href="#" class="ui-btn">Erstellen</a>
+				<div id="new_cards_content" class="full-height">
+					
+				</div>
+				<a href="#" id="cards_finished_button" class="ui-btn">Deck erstellen</a>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<div class="flex-row-menu flex-between">
+					<a href="#" id="new_deck_prev_card" class="ui-btn ui-disabled ui-icon-arrow-l ui-btn-icon-notext nav-buttons">left</a>
+					<a href="#" id="new_deck_next_card" class="ui-btn ui-icon-arrow-r ui-btn-icon-notext nav-buttons">right</a>
+				</div>
 			</div>
 		</div>
 		<!-- /page-->

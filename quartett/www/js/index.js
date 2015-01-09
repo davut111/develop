@@ -35,6 +35,14 @@ function bindListeners() {
 	$("#start_as_stabs_32").click(function(){
 		startAsStabs(32);
 	});
+	$("#new_deck_button_next_first").click(function() {
+		loadNewDeckPageTwo();
+	});
+	
+	$("#new_deck_button_next_second").click(function() {
+		loadNewDeckPageThree();
+	});
+	
 	$("#set_easy").click(setEasy);
 	$("#set_medium").click(setMedium);
 	$("#set_hard").click(setHard);

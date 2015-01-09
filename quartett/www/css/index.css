@@ -18,6 +18,10 @@
 	flex-direction: row;
 }
 
+.flex-center{
+	align-self: center;
+}
+
 .flex-around {
 	justify-content: space-around;
 }
@@ -79,6 +83,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #game_content{
+	height:100%;
+}
+
+.full-height{
 	height:100%;
 }
 
@@ -251,4 +259,33 @@ th>b {
 }
 td>b {
 	padding-left:.7em !important;
+}
+
+.example{
+	color:gray;
+	display:inline !important;
+}
+
+.custom-input-label{
+	width: 30%;
+}
+
+.custom-input-label-big{
+	width: 50%;
+}
+
+.nav-buttons{
+	width: 20% !important;
+}
+
+.custom_textbox > .ui-input-text{
+	margin: 0px !important;
+	width: 50%;
+	height: 80%;
+	align-self: center;
+	margin-right: 6px !important;
+}
+
+.margin-zero{
+	margin:0px !important;
 }
