@@ -2,7 +2,10 @@
 	display: box;
 	display: flex;
 	min-height: 100%;
+	-webkit-box-orient:vertical;
+	-webkit-flex-direction: column;
 	flex-direction: column;
+	-webkit-justify-content: center;
 	justify-content: center;
 }
 
@@ -10,7 +13,13 @@
 	display: box;
 	display: flex;
 	width: 100%;
+	-webkit-box-orient:horizontal;
+	-webkit-flex-direction: row;
 	flex-direction: row;
+}
+
+.flex-center{
+	align-self: center;
 }
 
 .flex-around {
@@ -37,6 +46,7 @@
 
 .gallery-preview {
 	height: 100px;
+	padding: 4px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -52,14 +62,32 @@ h1, h2, h3, h4, h5, h6 {
 	left: 0;
 }
 
+.dialog {
+	position: relative !important;
+	top: 0px;
+	bottom: 0px;
+}
+
 .min-width {
 	min-width: 45px;
+}
+
+.hide{
+	display: none;
 }
 
 .deck-icon {
 	width: 100px !important;
 	height: 100px !important;
 	border: solid 1px;
+}
+
+#game_content{
+	height:100%;
+}
+
+.full-height{
+	height:100%;
 }
 
 .gallery-preview {
@@ -181,6 +209,14 @@ h1, h2, h3, h4, h5, h6 {
 	opacity: 0.9;
 }
 
+.active-deck{
+	background:lightblue;
+}
+
+.great-header{
+	width:50%;
+}
+
 .computer-attribute-duell {
 	position: absolute;
 	bottom: 1px;
@@ -213,4 +249,47 @@ h1, h2, h3, h4, h5, h6 {
 
 .inactive {
 	opacity: 0.7;
+}
+.formular {
+	padding-left:.8em !important;
+	
+}
+th>b {
+	padding-left:.7em !important;
+}
+td>b {
+	padding-left:.7em !important;
+}
+
+.example{
+	color:gray;
+	display:inline !important;
+}
+
+.custom-input-label{
+	width: 30%;
+}
+
+.custom-input-label-big{
+	width: 50%;
+}
+
+.nav-buttons{
+	width: 20% !important;
+}
+
+.custom_textbox > .ui-input-text{
+	margin: 0px !important;
+	width: 50%;
+	height: 80%;
+	align-self: center;
+	margin-right: 6px !important;
+}
+
+.margin-zero{
+	margin:0px !important;
+}
+
+.camera-button{
+	position:absolute !important;
 }

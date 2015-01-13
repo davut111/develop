@@ -14,7 +14,9 @@ function onDeviceReady() {
 }
 
 function bindListeners() {
-	$("#start_as_deathmatch").click(startAsDeathMatch);
+	$("#start_as_deathmatch").click(function(){
+		startAsDeathMatch();
+		});
 	$("#start_as_rounds_8").click(function(){
 		startAsRounds(8);
 	});
@@ -33,6 +35,25 @@ function bindListeners() {
 	$("#start_as_stabs_32").click(function(){
 		startAsStabs(32);
 	});
+	
+	$("#new_deck_button_next_first").click(function() {
+		if($("#deckName").val().length > 0 && $("#deckType").val().length > 0){
+			loadNewDeckPageTwo();
+			$.mobile.changePage( "#new_deck_page_second", { transition: "slide"});
+			
+		}else{
+			alert("Bitte alle Felder richtig ausfüllen");
+		}
+	});
+	
+	$("#new_deck_button_next_second").click(function() {
+		loadNewDeckPageThree();
+	});
+	
+	$('#cards_finished_button').click(function() {
+		createDeck();	
+	});
+	
 	$("#set_easy").click(setEasy);
 	$("#set_medium").click(setMedium);
 	$("#set_hard").click(setHard);
@@ -40,6 +61,37 @@ function bindListeners() {
 	$("#actual_card_gallery").on("swiperight",swipeRightGallery);
 	$("#actual_card_gallery_two").on("swipeleft",swipeLeftGallery);
 	$("#actual_card_gallery_two").on("swiperight",swipeRightGallery);
+	
+	$("#closeApp").click(function() {
+		navigator.app.exitApp();
+	});
+	
+	$("#exitGame").click(function() {
+		undoGame;
+		$.mobile.changePage( "#menu", { allowSamePageTransition:true,transition: "slide", reverse:"true" });
+	});
+	
+	$("#closePopupButton").hide();
+	$("#exitGamePopupButton").hide();
+	
+	document.addEventListener("backbutton", function(e){
+       if($.mobile.activePage.is('#menu')){
+            e.preventDefault();
+            $("#closePopupButton").click();
+       }else if($.mobile.activePage.is('#gallery_card_page') || $.mobile.activePage.is('#gallery_card_page_two')){
+       	    $.mobile.changePage( "#gallery", { allowSamePageTransition:true,transition: "slide", reverse:"true" });
+       }else if($.mobile.activePage.is('#gallery')){
+       	    $.mobile.changePage( "#menu", { allowSamePageTransition:true,transition: "slide", reverse:"true" });
+       }else if($.mobile.activePage.is('#new_game')){
+       	    e.preventDefault();
+       	    $("#exitGamePopupButton").click();
+       }else if($.mobile.activePage.is('#duell_page')){
+       		e.stopPropagation();
+       }
+       else {
+            navigator.app.backHistory();
+       }
+    }, false);
 	
 };
 

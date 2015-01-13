@@ -5,14 +5,26 @@ var gallery = {
 };
 
 function loadGallery(){
-	gallery.actCardGallery =0;
+	
+	gallery.actCardGallery = 0;
+	
+	$("#gallery_deck").children().remove();
+	
+	$("#gallery_deck").append('<h2>Verfügbare Decks</h2>');
 	for(var i=0; i<database.decks.length; i++){
-		var deck = '<a href="#gallery_card_page" id="deck'+database.decks[i].id+'" class="flex-row-menu gallery-preview"><img class="deck-icon" src="img/'+
+		var deck = '<a href="#gallery_card_page"'+'id="deck'+i+'"'+'class="flex-row-menu gallery-preview"><img class="deck-icon" src="'+
 		database.decks[i].deckPicture+'" /> <div class="flex-column-menu"><h3>'+database.decks[i].deckName+'</h3><h4>'+database.decks[i].deckType+'</h4></div>' +
 		'<div class="card-number">'+database.decks[i].numberCards+'</div></a>';
 		$(deck).click(loadCardFromDeckId(i));
 		$("#gallery_deck").append(deck);
+		if(database.decks[i].actualDeck == 1){
+			var deckid = '#deck'+i;
+			$("#deck0").find("h4").html(database.decks[i].deckType+" (aktiv)");
+		}
 	}
+	
+	$("#gallery_deck").append('<a id="new_deck_button" href="#new_deck_page_first" class="ui-btn">Neues Deck erstellen</a>');
+	
 }
 
 function loadCardFromDeckId(deckId){

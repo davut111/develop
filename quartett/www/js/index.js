@@ -35,12 +35,23 @@ function bindListeners() {
 	$("#start_as_stabs_32").click(function(){
 		startAsStabs(32);
 	});
+	
 	$("#new_deck_button_next_first").click(function() {
-		loadNewDeckPageTwo();
+		if($("#deckName").val().length > 0 && $("#deckType").val().length > 0){
+			loadNewDeckPageTwo();
+			$.mobile.changePage( "#new_deck_page_second", { transition: "slide"});
+			
+		}else{
+			alert("Bitte alle Felder richtig ausfüllen");
+		}
 	});
 	
 	$("#new_deck_button_next_second").click(function() {
 		loadNewDeckPageThree();
+	});
+	
+	$('#cards_finished_button').click(function() {
+		createDeck();	
 	});
 	
 	$("#set_easy").click(setEasy);
