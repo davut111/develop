@@ -256,10 +256,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 th>b {
 	padding-left:.7em !important;
+	font-family: "Myanmar MN" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+	
 }
 td>b {
 	padding-left:.7em !important;
+	font-family: "Myanmar MN" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+	
 }
+
 
 .example{
 	color:gray;
@@ -318,3 +329,35 @@ td>b {
 .hide{
 	display:none !important;
 }
+
+.header {
+	font-family: "Myanmar MN" !important ;
+	font-style: italic !important;
+	font-weight:lighter !important;
+	
+}
+.schriftart {
+	font-family: "Myanmar MN" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+	
+}
+.hintergrund {
+	opacity:0.2;
+	filter:background-attachment: fixed;
+	
+}
+.button-style {
+	border-radius:5px !important;
+}
+
+body {
+	font-family: "Myanmar MN" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+}
+	
+	
+

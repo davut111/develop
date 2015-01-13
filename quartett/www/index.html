@@ -8,6 +8,7 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="jQuery/jquery.mobile-1.4.5.css" />
+		<link rel="stylesheet" href="css/theme_red2.css" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/database.js"></script>
@@ -17,22 +18,25 @@
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/other.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
-		<title>quartettApp</title>
+		<title >quartettApp</title>
 	</head>
 	<body>
 
 		<!-- Start of menu page -->
 		<div data-role="page" id="menu">
 
-			<div data-role="header">
-				<h1>quartApp</h1>
+			<div data-role="header" data-theme:"a">
+				<h1 class="header">quartApp</h1>
+			</div>
+			<div>
+				<img class="hintergrund" src="img/App-hintergrund.png" width="300" height="460">
 			</div>
 
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<a href="#new_game_options" class="ui-btn">Neues Spiel</a>
-					<a href="#gallery" class="ui-btn">Galerie</a>
-					<a href="#help" class="ui-btn">Hilfe</a>
+					<a href="#new_game_options" class="ui-btn schriftart button-style">Neues Spiel</a>
+					<a href="#gallery" class="ui-btn schriftart button-style">Galerie</a>
+					<a href="#help" class="ui-btn schriftart button-style">Hilfe</a>
 				</div>
 				<a id="closePopupButton" href="#exitApp" data-rel="popup" data-position-to="window" class="ui-btn">Open Dialog Popup</a>
 
@@ -50,75 +54,78 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="header">DB &copy;</h1>
 			</div>
 		</div>
 
 		<!-- Start of new_game_options page -->
 		<div data-role="page" id="new_game_options">
 			<div data-role="header">
-				<h1>Neues Spiel</h1>
+				<h1 class="schriftart">Neues Spiel</h1>
 			</div>
 
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<h2>Spielmodus wählen</h2>
-					<a href="#round_options" class="ui-btn">Runden</a>
-					<a href="#stab_options" class="ui-btn">Stiche</a>
-					<a id="start_as_deathmatch" href="#difficulty" class="ui-btn">Deathmatch</a>
+					<h2 class="schriftart">Spielmodus wählen</h2>
+					<a href="#round_options" class="ui-btn schriftart">Runden</a>
+					<a href="#stab_options" class="ui-btn schriftart">Stiche</a>
+					<a id="start_as_deathmatch" href="#difficulty" class="ui-btn schriftart">Deathmatch</a>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
 		<!-- Start of gallery page -->
 		<div data-role="page" id="gallery">
 			<div data-role="header">
-				<h1>Galerie</h1>
+				<h1 class="schriftart">Galerie</h1>
 			</div>
 
 			<div role="main" class="ui-content">
-				
+
 				<div id="gallery_deck" class="flex-column-menu">
-					
+
+					<h2 class="schriftart">Verfügbare Decks</h2>
+					<a id="new_deck_button" href="#new_deck_page_first" class="ui-btn ">Neues Deck erstellen</a>
+
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
 		<!-- Start of help page -->
 		<div data-role="page" id="help">
 			<div data-role="header">
-				<h1>Hilfe</h1>
+				<h1 class="schriftart">Hilfe</h1>
 			</div>
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<a href="#spielregeln_page" class="ui-btn">Allgemeine Spielregeln</a>
-					<a href="#spielmodi_page" class="ui-btn">Spielmodi</a>
+					<a href="#spielregeln_page" class="ui-btn schriftart button-style">Allgemeine Spielregeln</a>
+					<a href="#spielmodi_page" class="ui-btn schriftart button-style">Spielmodi</a>
 				</div>
 
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
 		<!-- Start of round_options page -->
 		<div data-role="page" id="round_options">
 			<div data-role="header">
-				<h1>Runden</h1>
+				<h1 class="schriftart">Runden</h1>
 			</div>
 
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<h2>Wie viele Runden?</h2>
+					<h2 class="schriftart">Wie viele Runden?</h2>
 					<div class="flex-row-menu flex-around">
 						<a id="start_as_rounds_8" href="#difficulty" class="ui-btn min-width">8</a>
 						<a id="start_as_rounds_16" href="#difficulty" class="ui-btn min-width">16</a>
@@ -128,19 +135,19 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
 		<!-- Start of stab_options page -->
 		<div data-role="page" id="stab_options">
 			<div data-role="header">
-				<h1>Stiche</h1>
+				<h1 class="schriftart">Stiche</h1>
 			</div>
 
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<h2>Wie viele Stiche?</h2>
+					<h2 class="schriftart">Wie viele Stiche?</h2>
 					<div class="flex-row-menu flex-around">
 						<a id="start_as_stabs_8" href="#difficulty" class="ui-btn min-width">8</a>
 						<a id="start_as_stabs_16" href="#difficulty" class="ui-btn min-width">16</a>
@@ -150,29 +157,29 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
 		<!-- Start of round_options page -->
 		<div data-role="page" id="difficulty">
 			<div data-role="header">
-				<h1>Runden</h1>
+				<h1 class="schriftart">Runden</h1>
 			</div>
 
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu">
-					<h2>Wie schwer?</h2>
+					<h2 class="schriftart">Wie schwer?</h2>
 					<div>
-						<a id="set_easy" href="#new_game" class="ui-btn min-width">Leicht</a>
-						<a id="set_medium"  href="#new_game" class="ui-btn min-width">Mittel</a>
-						<a id="set_hard"  href="#new_game" class="ui-btn min-width">Schwer</a>
+						<a id="set_easy" href="#new_game" class="ui-btn min-width schriftart" >Leicht</a>
+						<a id="set_medium"  href="#new_game" class="ui-btn min-width schriftart">Mittel</a>
+						<a id="set_hard"  href="#new_game" class="ui-btn min-width schriftart">Schwer</a>
 					</div>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div><!-- /page -->
 
@@ -262,10 +269,10 @@
 		<!--Start of Spielregeln page -->
 		<div data-role="page" id="spielregeln_page">
 			<div data-role="header">
-				<h1>Spielregeln</h1>
+				<h1 class="schriftart">Spielregeln</h1>
 			</div>
 			<div role="main" id="spielregeln" class="ui-content">
-				<label class="help"> Der Spieler erhält zu Beginn 16 von 32 Spielkarten.
+				<label class="help schriftart"> Der Spieler erhält zu Beginn 16 von 32 Spielkarten.
 					Die Aufteilung ist zufällig. Hierbei sieht der Spieler immer nur die oberste Spielkarte.
 					Der Spieler darf auch die Partie beginnen und wählt ein Attribut von seiner Karte.
 					Das Attribut wird mit dem Attribut der obersten Spielkarte des Computers verglichen.
@@ -276,7 +283,7 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div>
 		<!-- /page-->
@@ -284,20 +291,20 @@
 		<!--Start of Spielmodi page -->
 		<div data-role="page" id="spielmodi_page">
 			<div data-role="header">
-				<h1>Spielmodi</h1>
+				<h1 class="schriftart">Spielmodi</h1>
 			</div>
 			<div role="main" class="ui-content" >
-				<label class="help"> Runden: In diesem Spielmodus wird nach Runden (je nach Auswahl) gespielt.
+				<label class="help schriftart"> Runden: In diesem Spielmodus wird nach Runden (je nach Auswahl) gespielt.
 					Das Spiel endet sobald die Runden gespielt wurden.
 					Der Gewinner des Spieles ist derjenige mit den meisten Karten. </label >
-				<label class="help"> Stiche: In diesem Spielmodus wird nach Stichen gespielt.
+				<label class="help schriftart"> Stiche: In diesem Spielmodus wird nach Stichen gespielt.
 					Ein Stich ist eine gewonnene Runde.
 					Wer zuerst 8,16 oder 32 Stiche macht hat gewonnen </label>
-				<label class="help"> Deathmatch: In diesem Spielmodus wird solange gespielt bis ein Spieler alle Karten des Gegners hat. </label>
+				<label class="help schriftart"> Deathmatch: In diesem Spielmodus wird solange gespielt bis ein Spieler alle Karten des Gegners hat. </label>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div>
 		<!-- /page-->
@@ -312,7 +319,7 @@
 					<table data-role="table" id="my-table" data-mode="reflow"  >
 						<thead >
 							<tr >
-								<th>Deckname</th>
+								<th >Deckname</th>
 								<th>Decktyp</th>
 								<th>Kartenanzahl</th>
 								<th>Attributenanzahl</th>
@@ -343,12 +350,12 @@
 							</tr>
 						</tbody>
 					</table>
-					<a href="#" data-transition="slide" id="new_deck_button_next_first" class="ui-btn">Weiter</a>
+					<a href="#" data-transition="slide" id="new_deck_button_next_first" class="ui-btn schriftart button-style">Weiter</a>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class="schriftart">DB &copy;</h1>
 			</div>
 		</div>
 		<!-- /page-->
@@ -356,16 +363,16 @@
 		<!--Start of newDeck page second..attributes -->
 		<div data-role="page" id="new_deck_page_second">
 			<div data-role="header">
-				<h1 class="great-header">Erstelle Deck (2/3)</h1>
+				<h1 class="great-header schriftart">Erstelle Deck (2/3)</h1>
 			</div>
 			<div role="main" class="ui-content">
 				<div class="flex-column-menu" id="new_deck_page_second_content">
-					<a href="#" id="new_deck_button_next_second" class="ui-btn">Weiter</a>
+					<a href="#" id="new_deck_button_next_second" class="ui-btn schriftart button-style">Weiter</a>
 				</div>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
-				<h1>DB &copy;</h1>
+				<h1 class"schriftart">DB &copy;</h1>
 			</div>
 		</div>
 		<!-- /page-->
@@ -373,14 +380,14 @@
 		<!--Start of newDeck page third..all cards -->
 		<div data-role="page" id="new_deck_page_third">
 			<div data-role="header">
-				<h1 class="great-header">Erstelle Deck (3/3)</h1>
+				<h1 class="great-header schriftart">Erstelle Deck (3/3)</h1>
 			</div>
 			<div role="main" class="ui-content" >
 				<div id="new_cards_content" class="full-height">
-					
+
 				</div>
 				<input type="text" value="1" id="cardName" placeholder="Kartenname">
-				<a href="#" id="cards_finished_button" class="ui-btn">Deck erstellen</a>
+				<a href="#" id="cards_finished_button" class="ui-btn schriftart button-style">Deck erstellen</a>
 			</div>
 
 			<div data-role="footer" data-position="fixed">
