@@ -54,6 +54,9 @@ h1, h2, h3, h4, h5, h6 {
 	vertical-align: middle;
 }
 
+.available-decks{
+	color: black;
+}
 .ui-content {
 	position: absolute;
 	top: 42px;
@@ -101,7 +104,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .gallery-preview h4 {
 	position: relative;
-	color: gray;
+	color: grey;
 	text-align: left;
 	padding-left: 16px;
 	bottom: 20px;
@@ -119,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #ECEFF2;
 	border-radius: 12px;
 	text-align: center;
-	color: gray;
+	color: black;
 }
 
 .card-on-hand {
@@ -176,6 +179,20 @@ h1, h2, h3, h4, h5, h6 {
 .card-cell-5 {
 	height: 20%;
 	line-height: 300%;
+	font-weight: bold;
+	padding-left: 6px !important;
+}
+
+.card-cell-4 {
+	height: 25%;
+	line-height: 400%;
+	font-weight: bold;
+	padding-left: 6px !important;
+}
+
+.card-cell-3 {
+	height: 33.33%;
+	line-height: 500%;
 	font-weight: bold;
 	padding-left: 6px !important;
 }
@@ -250,16 +267,31 @@ h1, h2, h3, h4, h5, h6 {
 .inactive {
 	opacity: 0.7;
 }
+
+.inactive-more {
+	opacity: 0.4;
+}
 .formular {
 	padding-left:.8em !important;
 	
 }
 th>b {
 	padding-left:.7em !important;
+	font-family: "Myriad Pro" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+	
 }
 td>b {
 	padding-left:.7em !important;
+	font-family: "Myriad Pro" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+	
 }
+
 
 .example{
 	color:gray;
@@ -293,3 +325,69 @@ td>b {
 .camera-button{
 	position:absolute !important;
 }
+
+.gallery-gear{
+	position: absolute !important;
+	right: 16px;
+	margin-top: 20px !important;
+	border-radius: 15px !important;
+	background-color: #871F23 !important;
+}
+
+.activate-button{
+	position: absolute !important;
+	margin-top: 27px !important;
+	z-index: 100;
+	margin-left: 15% !important;
+	width: 50% !important;
+}
+
+.active-button{
+	position: absolute !important;
+	margin-top: 27px !important;
+	z-index: 100;
+	margin-left: 15% !important;
+	width: 50% !important;
+}
+
+.hide{
+	display:none !important;
+}
+
+.header {
+	font-family: "Myriad Pro" !important ;
+	font-style: italic !important;
+	font-weight:lighter !important;
+	text-shadow: white 0px 0px 15px !important;
+	
+}
+.schriftart {
+	font-family: "Myriad Pro" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+	
+}
+.hintergrund {
+	background-image: url('App-hintergrund-U2.png');
+    background-size: contain;
+}
+.ui-btn:not(.gallery-gear) {
+	border-radius:5px !important;
+	font-family: "Myriad Pro" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: white 0px 0px 50px !important;
+	color: white !important;
+	background-color: #871F23 !important;
+}
+
+body {
+	font-family: "Myriad Pro" !important ;
+	font-weight:bolder !important;
+	font-style:normal ;
+	text-shadow: black  !important;
+}
+	
+	
+

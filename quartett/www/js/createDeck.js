@@ -588,7 +588,12 @@ function loadNewCard(attributeNumber){
 	
 	$("#new_cards_content").children().remove();
 	$("#new_deck_prev_card").after('<label id="to_remove" class="flex-center margin-zero">Karte '+actCard+' von '+newDeck.cardNumber+'</label>');
-	$("#new_cards_content").append('<div class="ui-grid-a card-cell-big"><img id="card_pic_create_deck" class="card-picture" src="img/logo.png" /></div>');
+	
+	if(actCard > newDeck.cards.length){
+		$("#new_cards_content").append('<div class="ui-grid-a card-cell-big"><img id="card_pic_create_deck" class="card-picture" src="img/logo.png" /></div>');
+	}else{
+		$("#new_cards_content").append('<div class="ui-grid-a card-cell-big"><img id="card_pic_create_deck" class="card-picture" src="'+newDeck.cards[actCard-1].picture+'" /></div>');
+	}
 		
 		$("#open_camera").click(function() {
 			navigator.camera.getPicture(onCameraSuccess, onCameraFail, { 
@@ -654,7 +659,14 @@ function loadNewCard(attributeNumber){
 		$(bigCell).append(attribute1, value1, attribute2, value2, attribute3, value3, attribute4, value4, attribute5, value5);
 		$("#new_cards_content").append(bigCell);
 		
-		$("#cardName").val("");
+		if(actCard > newDeck.cards.length){
+			$("#cardName").val("");
+		}else{
+			$("#cardName").val(newDeck.cards[actCard-1].name);
+			$("#new_card_value1").val(newDeck.cards[actCard-1].values[0]);
+			$("#new_card_value2").val(newDeck.cards[actCard-1].values[1]);
+			$("#new_card_value3").val(newDeck.cards[actCard-1].values[2]);
+		}
 		
 		break;
 	case 4:
@@ -711,7 +723,15 @@ function loadNewCard(attributeNumber){
 		$(bigCell).append(attribute1, value1, attribute2, value2, attribute3, value3, attribute4, value4, attribute5, value5);
 		$("#new_cards_content").append(bigCell);
 		
-		$("#cardName").val("");
+		if(actCard > newDeck.cards.length){
+			$("#cardName").val("");
+		}else{
+			$("#cardName").val(newDeck.cards[actCard-1].name);
+			$("#new_card_value1").val(newDeck.cards[actCard-1].values[0]);
+			$("#new_card_value2").val(newDeck.cards[actCard-1].values[1]);
+			$("#new_card_value3").val(newDeck.cards[actCard-1].values[2]);
+			$("#new_card_value4").val(newDeck.cards[actCard-1].values[3]);
+		}
 
 		break;
 	case 5:
@@ -782,7 +802,16 @@ function loadNewCard(attributeNumber){
 		$(bigCell).append(attribute1, value1, attribute2, value2, attribute3, value3, attribute4, value4, attribute5, value5);
 		$("#new_cards_content").append(bigCell);
 		
-		$("#cardName").val("");
+		if(actCard > newDeck.cards.length){
+			$("#cardName").val("");
+		}else{
+			$("#cardName").val(newDeck.cards[actCard-1].name);
+			$("#new_card_value1").val(newDeck.cards[actCard-1].values[0]);
+			$("#new_card_value2").val(newDeck.cards[actCard-1].values[1]);
+			$("#new_card_value3").val(newDeck.cards[actCard-1].values[2]);
+			$("#new_card_value4").val(newDeck.cards[actCard-1].values[3]);
+			$("#new_card_value5").val(newDeck.cards[actCard-1].values[4]);
+		}
 
 		break;
 	default:
@@ -802,7 +831,7 @@ function loadPrevCard(attributeNumber){
 	
 	$("#new_cards_content").children().remove();
 	$("#new_deck_prev_card").after('<label id="to_remove" class="flex-center margin-zero">Karte '+actCard+' von '+newDeck.cardNumber+'</label>');
-	$("#new_cards_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/logo.png" /></div>');
+	$("#new_cards_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="'+newDeck.cards[actCard -1].picture+'" /></div>');
 	
 	switch(attributeNumber) {
 	case 3:

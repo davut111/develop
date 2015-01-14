@@ -39,14 +39,13 @@ function getData(tx) {
 	tx.executeSql(sqlDecks, [], getDecks_success);
 	tx.executeSql(sqlCards, [], getCards_success);
 	tx.executeSql(sqlAttributes, [], getAttributes_success);
-	//database.db = null;
+	database.db = null;
 
 
 }
 
 function getDecks_success(tx, results) {
 	var len = results.rows.length;
-	console.log(len);
 	database.lastDeck = len-1;
 	for (var i = 0; i < len; i++) {
 		var row = results.rows.item(i);
@@ -118,7 +117,7 @@ function assignmentDB(){
 function insertDeckIntoDB(deck){
 	insertDeck = deck;
 	
-	//database.db = window.openDatabase("deckDB", "1.0", "Application Database", 1000000);
+	database.db = window.openDatabase("deckDB", "1.0", "Application Database", 1000000);
 	database.db.transaction(insertData, transaction_error);
 
 	database.decks= [];
@@ -126,6 +125,7 @@ function insertDeckIntoDB(deck){
 	database.attributes= [];
 
 	database.db.transaction(getData, transaction_error);
+	database.db = null;
 }
 
 function insertData(tx){
@@ -167,11 +167,28 @@ function insertData(tx){
 		}
 		
 	}
+	
+function setActiveDeck(deckNumber,tx){
+	database.db = window.openDatabase("deckDB", "1.0", "Application Database", 1000000);
+	database.db.transaction(function(tx){setActiveDeckDB(tx, deckNumber);}, transaction_error);
+	
+	database.decks= [];
+	database.cards= [];
+	database.attributes= [];
+
+	database.db.transaction(getData, transaction_error);
+	database.db = null;
+}
+
+function setActiveDeckDB(tx,deck){
+	tx.executeSql("UPDATE decks SET actualDeck = 0 WHERE actualDeck = 1");
+	tx.executeSql("UPDATE decks SET actualDeck = 1 WHERE deckId = "+deck);
+}
 
 function populateDB(tx) {
-	tx.executeSql('DROP TABLE IF EXISTS decks');
+	/*tx.executeSql('DROP TABLE IF EXISTS decks');
 	tx.executeSql('DROP TABLE IF EXISTS cards');
-	tx.executeSql('DROP TABLE IF EXISTS attributes');
+	tx.executeSql('DROP TABLE IF EXISTS attributes');*/
 
 	var sqlDecks = "CREATE TABLE IF NOT EXISTS decks ( " + "deckId INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckName VARCHAR(50), " + "numberAttributes INTEGER, " + "numberCards INTEGER, " + "deckType VARCHAR(30), " + "deckPicture VARCHAR(200)," + "actualDeck BOOLEAN)";
 
@@ -191,7 +208,7 @@ function populateDB(tx) {
 
 	tx.executeSql("INSERT OR IGNORE INTO decks (deckId,deckName,numberAttributes,numberCards,deckType,deckPicture,actualDeck) VALUES (0,'Luxusautos',5,32,'Auto','img/Luxusautos/1.jpg',1)");
 	
-	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (0,0,'Bentley Continental GT','Dies ist eine Beispielkarte','img/img/Luxusautos/1.jpg')");
+	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (0,0,'Bentley Continental GT','Dies ist eine Beispielkarte','img/Luxusautos/1.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (1,0,'Porsche Panamera Turbo','Dies ist eine Beispielkarte','img/Luxusautos/2.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (2,0,'BMW 650i Gran Coupé','Dies ist eine Beispielkarte','img/Luxusautos/3.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (3,0,'Lamborghini Aventador','Dies ist eine Beispielkarte','img/Luxusautos/4.jpg')");

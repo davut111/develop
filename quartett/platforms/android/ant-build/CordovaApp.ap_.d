@@ -37,7 +37,16 @@ C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\index.html 
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\jQuery \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\js \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\plugins \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\App-hintergrund-BU.png \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\App-hintergrund-BU2.png \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\App-hintergrund-U.png \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\App-hintergrund-U2.png \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\App-hintergrund.png \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\index.css \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\theme1.css \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\theme2.css \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\theme3.css \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\theme_red2.css \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Bikes \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\logo.png \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Luxusautos \

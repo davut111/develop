@@ -160,7 +160,7 @@ function showTopCard() {
 	var card = userHand.topCard;
 	var numberAttributes = game.deck.numberAttributes;
 	var userCardsCount = userHand.cards.length;
-	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/' + card.cardPicture + '" /></div>');
+	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="' + card.cardPicture + '" /></div>');
 	$("#game_content").removeClass('inactive');
 	$("#user_card_number_game").removeClass('inactive');
 	$("#game_header_title").removeClass('inactive');
@@ -370,7 +370,7 @@ function showComputerCard() {
 	var card = computerHand.topCard;
 	var numberAttributes = game.deck.numberAttributes;
 	var computerCardsCount = computerHand.cards.length;
-	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="img/' + card.cardPicture + '" /></div>');
+	$("#game_content").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="' + card.cardPicture + '" /></div>');
 	$("#game_content").addClass('inactive');
 	$("#game_footer_title").html(card.cardName);
 	$("#game_footer_title").addClass('inactive');
@@ -489,8 +489,8 @@ function loadDuellPage(attributeIndex) {
 	var userCardsCount = userHand.cards.length;
 	var computerCardsCount = computerHand.cards.length;
 	$("#duell_content").children().remove();
-	$("#duell_content").append('<div class="ui-grid-a card-cell-big computer-cell-duell"><img class="card-picture" src="img/' + computerHand.topCard.cardPicture + '" /></div>');
-	$("#duell_content").append('<div class="ui-grid-a card-cell-big user-cell-duell"><img class="card-picture" src="img/' + userHand.topCard.cardPicture + '" /></div>');
+	$("#duell_content").append('<div class="ui-grid-a card-cell-big computer-cell-duell"><img class="card-picture" src="' + computerHand.topCard.cardPicture + '" /></div>');
+	$("#duell_content").append('<div class="ui-grid-a card-cell-big user-cell-duell"><img class="card-picture" src="' + userHand.topCard.cardPicture + '" /></div>');
 	$("#duell_header").removeClass('duell-lost duell-draw');
 	$("#duell_footer").removeClass('duell-won duell-draw');
 	$("#duell_header_title").html('Computer');
