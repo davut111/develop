@@ -67,7 +67,7 @@ function bindListeners() {
 	});
 	
 	$("#exitGame").click(function() {
-		undoGame;
+		undoGame();
 		$.mobile.changePage( "#menu", { allowSamePageTransition:true,transition: "slide", reverse:"true" });
 	});
 	

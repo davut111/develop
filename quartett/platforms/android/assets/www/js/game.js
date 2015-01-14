@@ -804,7 +804,22 @@ function roundWon(userCard, computerCard) {
 				transition : "slide",
 				reverse : "true"
 			});
-		}else{
+		}else if((game.options.roundsPlayed == game.options.roundsToPlay && userHand.cards.length < computerHand.cards.length)){
+			alert("GAME OVER");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}else if((game.options.roundsPlayed == game.options.roundsToPlay && userHand.cards.length == computerHand.cards.length)){
+			alert("DRAW");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}
+		else{
 			userHand.topCard = userHand.cards[0];
 			computerHand.topCard = computerHand.cards[0];
 			showTopCard();
@@ -838,7 +853,22 @@ function roundLost(userCard, computerCard) {
 				transition : "slide",
 				reverse : "true"
 			});
-		}else{
+		}else if((game.options.roundsPlayed == game.options.roundsToPlay && userHand.cards.length > computerHand.cards.length)){
+			alert("GAME WON");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}else if((game.options.roundsPlayed == game.options.roundsToPlay && userHand.cards.length == computerHand.cards.length)){
+			alert("DRAW");
+			$.mobile.changePage("#menu", {
+				allowSamePageTransition : true,
+				transition : "slide",
+				reverse : "true"
+			});
+		}
+		else{
 
 			userHand.topCard = userHand.cards[0];
 			computerHand.topCard = computerHand.cards[0];
