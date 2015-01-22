@@ -4,13 +4,33 @@ var gallery = {
 	firstPage : true
 };
 
-function loadGallery(){
+function loadDecksToGallery(json,length){
+	for(var i=0;i<json.length;i++){
+		var deck = '<a href="#"'+'id="deck'+json[i].id+'"'+'class="flex-row-menu gallery-preview"><img class="deck-icon" src="'+
+			json[i].image+'" /> <div id="download_deck_'+json[i].id+'" class="flex-column-menu flex-start-items"><h3 class="downloadable">'+json[i].name+'</h3></div>' +
+			'<div class="card-number">'+length+'</div></a>';
+		$("#download_decks").append(deck);
+		var deckid = '#download_deck_'+json[i].id;
+		//var loadButton = '#load'+json[i].id;
+		$(deckid).append('<a href="#" id="load'+json[i].id+'" class="ui-btn download-button">Laden</a>');
+		console.log(json);
+	}
 	
+	$(".download-button").click(function() {
+		$(this).html("Lädt..");
+		var clickedId = $(this).attr('id');
+		var id = clickedId.split("load")[1];
+		loadServiceDeckData(id);
+		
+	});
+}
+
+function loadGallery(){
 	
 	$("#gallery_deck").children().remove();
 	
 	$("#gallery_deck").append('<a href="#" class="ui-btn ui-icon-gear ui-btn-icon-notext gallery-gear">Spielmodi</a>');
-	$("#gallery_deck").append('<h2 class="available-decks">Verfügbare Decks</h2>');
+	$("#gallery_deck").append('<h2 class="available-decks">Meine Decks</h2>');
 	for(var i=0; i<database.decks.length; i++){
 		var deck = '<a href="#gallery_card_page"'+'id="deck'+i+'"'+'class="flex-row-menu gallery-preview"><img class="deck-icon" src="'+
 		database.decks[i].deckPicture+'" /> <div class="flex-column-menu"><h3>'+database.decks[i].deckName+'</h3><h4>'+database.decks[i].deckType+'</h4></div>' +
@@ -50,17 +70,18 @@ function loadGallery(){
 		$(".active-button").toggleClass('hide');
 		$(".gallery-preview").children().not('.activate-button,.active-button').toggleClass('inactive-more');
 	});
+	$("#gallery_deck").append('<a id="load_decks" href="#load_decks_page" class="ui-btn schriftart">Weitere Decks laden</a>');
 	$("#gallery_deck").append('<a id="new_deck_button" href="#new_deck_page_first" class="ui-btn schriftart">Neues Deck erstellen</a>');
 	
 }
 
 function loadCardFromDeckId(deckId){
-	console.log(database);
-	console.log(deckId);
+	//console.log(database);
+	//console.log(deckId);
 	$("#actual_card_gallery").children().remove();
 	gallery.actDeckGallery = deckId;
 	var card = database.decks[gallery.actDeckGallery].cards[gallery.actCardGallery];
-	console.log(card);
+	//console.log(card);
 	var numberAttributes = database.decks[gallery.actDeckGallery].numberAttributes;
 	$("#actual_card_gallery").append('<div class="ui-grid-a card-cell-big"><img class="card-picture" src="'+card.cardPicture+'" /></div>');
 	$("#gallery_card_footer").html(card.cardName);

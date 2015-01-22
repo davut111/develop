@@ -186,9 +186,11 @@ function setActiveDeckDB(tx,deck){
 }
 
 function populateDB(tx) {
-	/*tx.executeSql('DROP TABLE IF EXISTS decks');
+	
+	/**Auskommentieren um erstellte Decks persistent zu speichern**/
+	tx.executeSql('DROP TABLE IF EXISTS decks');
 	tx.executeSql('DROP TABLE IF EXISTS cards');
-	tx.executeSql('DROP TABLE IF EXISTS attributes');*/
+	tx.executeSql('DROP TABLE IF EXISTS attributes');
 
 	var sqlDecks = "CREATE TABLE IF NOT EXISTS decks ( " + "deckId INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckName VARCHAR(50), " + "numberAttributes INTEGER, " + "numberCards INTEGER, " + "deckType VARCHAR(30), " + "deckPicture VARCHAR(200)," + "actualDeck BOOLEAN)";
 

@@ -11,6 +11,7 @@ var app = {
 function onDeviceReady() {
 	bindListeners();
 	initializeDB();
+	loadDecksFromService();
 }
 
 function bindListeners() {
@@ -87,6 +88,8 @@ function bindListeners() {
        	    $("#exitGamePopupButton").click();
        }else if($.mobile.activePage.is('#duell_page')){
        		e.stopPropagation();
+       }else if($.mobile.activePage.is('#load_decks_page')){
+       	    $.mobile.changePage( "#gallery", { allowSamePageTransition:true,transition: "slide", reverse:"true" });
        }
        else {
             navigator.app.backHistory();

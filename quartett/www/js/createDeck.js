@@ -29,6 +29,9 @@ function loadNewDeckPageTwo (){
 	deckType = $("#deckType").val();
 	
 	switch ($("#select-choice-card").val()) {
+		case "4" : 
+			cardNumber = 4;
+			break;
 		case "16" : 
 			cardNumber = cardNumbers.SMALL;
 			break;
@@ -1027,12 +1030,29 @@ function createDeck(){
 				var card = {
 					attributes: newDeck.attributes,
 					values: [getVal1,getVal2,getVal3],
-					name: cardName
+					name: cardName,
+					picture: 'img/logo.png'
 				};
+				card.picture = actPic;
 				newDeck.cards[newDeck.cards.length] = card;
 				
 				insertDeckIntoDB(newDeck);
+				newDeck = {
+					deckName : "Neues Deck",
+					deckType : "Beispieldeck",
+					cardNumber: null,
+					attributeNumber: null,
+					finished: false,
+					attributes: [],
+					cards:[]
+				};
 				
+				deckName = $("#deckName").val("");
+				deckType = $("#deckType").val("");
+				 actCard = 0;
+				 actPic = 'img/logo.png';
+				 $("#new_deck_page_second_content").children().not("#new_deck_button_next_second").remove();
+				 
 				$.mobile.changePage("#gallery", {
 				});
 			}
@@ -1049,11 +1069,28 @@ function createDeck(){
 				var card = {
 					attributes: newDeck.attributes,
 					values: [getVal1,getVal2,getVal3,getVal4],
-					name: cardName
+					name: cardName,
+					picture: 'img/logo.png'
 				};
+				card.picture = actPic;
 				newDeck.cards[newDeck.cards.length] = card;
 				
 				insertDeckIntoDB(newDeck);
+				newDeck = {
+					deckName : "Neues Deck",
+					deckType : "Beispieldeck",
+					cardNumber: null,
+					attributeNumber: null,
+					finished: false,
+					attributes: [],
+					cards:[]
+				};
+				
+				deckName = $("#deckName").val("");
+				deckType = $("#deckType").val("");
+				 actCard = 0;
+				 actPic = 'img/logo.png';
+				$("#new_deck_page_second_content").children().not("#new_deck_button_next_second").remove();
 				
 				$.mobile.changePage("#gallery", {
 				});
@@ -1072,11 +1109,28 @@ function createDeck(){
 				var card = {
 					attributes: newDeck.attributes,
 					values: [getVal1,getVal2,getVal3,getVal4,getVal5],
-					name: cardName
+					name: cardName,
+					picture: 'img/logo.png'
 				};
+				card.picture = actPic;
 				newDeck.cards[newDeck.cards.length] = card;
 				
 				insertDeckIntoDB(newDeck);
+				 newDeck = {
+					deckName : "Neues Deck",
+					deckType : "Beispieldeck",
+					cardNumber: null,
+					attributeNumber: null,
+					finished: false,
+					attributes: [],
+					cards:[]
+				};
+				
+				deckName = $("#deckName").val("");
+				deckType = $("#deckType").val("");
+				 actCard = 0;
+				 actPic = 'img/logo.png';
+				 $("#new_deck_page_second_content").children().not("#new_deck_button_next_second").remove();
 				
 				$.mobile.changePage("#gallery", {
 				});

@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="js/gallery.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
 		<script type="text/javascript" src="js/createDeck.js"></script>
+		<script type="text/javascript" src="js/webService.js"></script>
 		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/other.js"></script>
 		<script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.js"></script>
@@ -85,10 +86,26 @@
 
 				<div id="gallery_deck" class="flex-column-menu">
 
-					<h2 class="schriftart">Verfügbare Decks</h2>
-					<a id="new_deck_button" href="#new_deck_page_first" class="ui-btn ">Neues Deck erstellen</a>
+					
 
 				</div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<h1 class="header">Mobile Applications Lab &copy;</h1>
+			</div>
+		</div><!-- /page -->
+		
+		<!-- Start of load decks page -->
+		<div data-role="page" id="load_decks_page">
+			<div data-role="header">
+				<h1 class="header">Decks laden</h1>
+			</div>
+			<div role="main" class="ui-content">
+				<div id="download_decks" class="flex-column-menu">
+					<h2 class="schriftart">Verfügbare Decks</h2>
+				</div>
+
 			</div>
 
 			<div data-role="footer" data-position="fixed">
@@ -333,6 +350,7 @@
 								</td>
 								<td >
 								<select name="select-choice-min" id="select-choice-card" data-mini="true">
+									<option value="4">4 Karten (DEMO)</option>
 									<option value="16">16 Karten</option>
 									<option value="24">24 Karten</option>
 									<option value="32">32 Karten</option>
@@ -383,7 +401,7 @@
 				<div id="new_cards_content" class="full-height">
 
 				</div>
-				<input type="text" value="1" id="cardName" placeholder="Kartenname">
+				<input type="text" id="cardName" placeholder="Kartenname">
 				<a href="#" id="cards_finished_button" class="ui-btn schriftart button-style">Deck erstellen</a>
 			</div>
 
