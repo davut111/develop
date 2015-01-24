@@ -329,6 +329,7 @@ C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\js\gallery.
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\js\game.js \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\js\index.js \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\js\other.js \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\js\webService.js \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\plugins\org.apache.cordova.camera \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\plugins\org.apache.cordova.file \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\plugins\org.apache.cordova.file-transfer \

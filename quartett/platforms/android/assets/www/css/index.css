@@ -2,7 +2,7 @@
 	display: box;
 	display: flex;
 	min-height: 100%;
-	-webkit-box-orient:vertical;
+	-webkit-box-orient: vertical;
 	-webkit-flex-direction: column;
 	flex-direction: column;
 	-webkit-justify-content: center;
@@ -13,12 +13,12 @@
 	display: box;
 	display: flex;
 	width: 100%;
-	-webkit-box-orient:horizontal;
+	-webkit-box-orient: horizontal;
 	-webkit-flex-direction: row;
 	flex-direction: row;
 }
 
-.flex-center{
+.flex-center {
 	align-self: center;
 }
 
@@ -32,6 +32,11 @@
 
 .flex-start {
 	align-self: flex-start;
+}
+
+.flex-start-items {
+	justify-content: flex-start !important;
+	width: 120px;
 }
 
 .deck-label {
@@ -54,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 	vertical-align: middle;
 }
 
-.available-decks{
+.available-decks {
 	color: black;
 }
 .ui-content {
@@ -75,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
 	min-width: 45px;
 }
 
-.hide{
+.hide {
 	display: none;
 }
 
@@ -85,12 +90,12 @@ h1, h2, h3, h4, h5, h6 {
 	border: solid 1px;
 }
 
-#game_content{
-	height:100%;
+#game_content {
+	height: 100%;
 }
 
-.full-height{
-	height:100%;
+.full-height {
+	height: 100%;
 }
 
 .gallery-preview {
@@ -197,7 +202,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding-left: 6px !important;
 }
 
-
 .even-cell {
 	background: lightgray;
 }
@@ -226,12 +230,12 @@ h1, h2, h3, h4, h5, h6 {
 	opacity: 0.9;
 }
 
-.active-deck{
-	background:lightblue;
+.active-deck {
+	background: lightblue;
 }
 
-.great-header{
-	width:50%;
+.great-header {
+	width: 50%;
 }
 
 .computer-attribute-duell {
@@ -272,45 +276,41 @@ h1, h2, h3, h4, h5, h6 {
 	opacity: 0.4;
 }
 .formular {
-	padding-left:.8em !important;
-	
+	padding-left: .8em !important;
 }
-th>b {
-	padding-left:.7em !important;
-	font-family: "Myriad Pro" !important ;
-	font-weight:bolder !important;
-	font-style:normal ;
-	text-shadow: black  !important;
-	
+th > b {
+	padding-left: .7em !important;
+	font-family: "Myriad Pro" !important;
+	font-weight: bolder !important;
+	font-style: normal;
+	text-shadow: black !important;
 }
-td>b {
-	padding-left:.7em !important;
-	font-family: "Myriad Pro" !important ;
-	font-weight:bolder !important;
-	font-style:normal ;
-	text-shadow: black  !important;
-	
+td > b {
+	padding-left: .7em !important;
+	font-family: "Myriad Pro" !important;
+	font-weight: bolder !important;
+	font-style: normal;
+	text-shadow: black !important;
 }
 
-
-.example{
-	color:gray;
-	display:inline !important;
+.example {
+	color: gray;
+	display: inline !important;
 }
 
-.custom-input-label{
+.custom-input-label {
 	width: 30%;
 }
 
-.custom-input-label-big{
+.custom-input-label-big {
 	width: 50%;
 }
 
-.nav-buttons{
+.nav-buttons {
 	width: 20% !important;
 }
 
-.custom_textbox > .ui-input-text{
+.custom_textbox > .ui-input-text {
 	margin: 0px !important;
 	width: 50%;
 	height: 80%;
@@ -318,15 +318,15 @@ td>b {
 	margin-right: 6px !important;
 }
 
-.margin-zero{
-	margin:0px !important;
+.margin-zero {
+	margin: 0px !important;
 }
 
-.camera-button{
-	position:absolute !important;
+.camera-button {
+	position: absolute !important;
 }
 
-.gallery-gear{
+.gallery-gear {
 	position: absolute !important;
 	right: 16px;
 	margin-top: 20px !important;
@@ -334,7 +334,7 @@ td>b {
 	background-color: #871F23 !important;
 }
 
-.activate-button{
+.activate-button {
 	position: absolute !important;
 	margin-top: 27px !important;
 	z-index: 100;
@@ -342,7 +342,7 @@ td>b {
 	width: 50% !important;
 }
 
-.active-button{
+.active-button {
 	position: absolute !important;
 	margin-top: 27px !important;
 	z-index: 100;
@@ -350,44 +350,52 @@ td>b {
 	width: 50% !important;
 }
 
-.hide{
-	display:none !important;
+.hide {
+	display: none !important;
 }
 
 .header {
-	font-family: "Myriad Pro" !important ;
+	font-family: "Myriad Pro" !important;
 	font-style: italic !important;
-	font-weight:lighter !important;
+	font-weight: lighter !important;
 	text-shadow: white 0px 0px 15px !important;
-	
 }
 .schriftart {
-	font-family: "Myriad Pro" !important ;
-	font-weight:bolder !important;
-	font-style:normal ;
-	text-shadow: black  !important;
-	
+	font-family: "Myriad Pro" !important;
+	font-weight: bolder !important;
+	font-style: normal;
+	text-shadow: black !important;
 }
 .hintergrund {
 	background-image: url('App-hintergrund-U2.png');
-    background-size: contain;
+	background-size: contain;
 }
 .ui-btn:not(.gallery-gear) {
-	border-radius:5px !important;
-	font-family: "Myriad Pro" !important ;
-	font-weight:bolder !important;
-	font-style:normal ;
-	text-shadow: white 0px 0px 50px !important;
-	color: white !important;
-	background-color: #871F23 !important;
+border-radius:5px !important;
+font-family: "Myriad Pro" !important ;
+font-weight:bolder !important;
+font-style:normal ;
+text-shadow: white 0px 0px 50px !important;
+color: white !important;
+background-color: #871F23 !important;
 }
 
 body {
-	font-family: "Myriad Pro" !important ;
-	font-weight:bolder !important;
-	font-style:normal ;
-	text-shadow: black  !important;
+	font-family: "Myriad Pro" !important;
+	font-weight: bolder !important;
+	font-style: normal;
+	text-shadow: black !important;
 }
-	
-	
+
+#load_decks {
+	margin-top: 20px;
+}
+
+.download-button {
+	position: relative !important;
+	z-index: 100;
+	margin-left: 13% !important;
+	width: 70% !important;
+	height: 70px;
+}
 

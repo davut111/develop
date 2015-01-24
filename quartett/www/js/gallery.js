@@ -8,12 +8,11 @@ function loadDecksToGallery(json,length){
 	for(var i=0;i<json.length;i++){
 		var deck = '<a href="#"'+'id="deck'+json[i].id+'"'+'class="flex-row-menu gallery-preview"><img class="deck-icon" src="'+
 			json[i].image+'" /> <div id="download_deck_'+json[i].id+'" class="flex-column-menu flex-start-items"><h3 class="downloadable">'+json[i].name+'</h3></div>' +
-			'<div class="card-number">'+length+'</div></a>';
+			'<div class="card-number">'+length[i]+'</div></a>';
 		$("#download_decks").append(deck);
 		var deckid = '#download_deck_'+json[i].id;
 		//var loadButton = '#load'+json[i].id;
 		$(deckid).append('<a href="#" id="load'+json[i].id+'" class="ui-btn download-button">Laden</a>');
-		console.log(json);
 	}
 	
 	$(".download-button").click(function() {
@@ -80,6 +79,7 @@ function loadCardFromDeckId(deckId){
 	//console.log(deckId);
 	$("#actual_card_gallery").children().remove();
 	gallery.actDeckGallery = deckId;
+	console.log(database);
 	var card = database.decks[gallery.actDeckGallery].cards[gallery.actCardGallery];
 	//console.log(card);
 	var numberAttributes = database.decks[gallery.actDeckGallery].numberAttributes;

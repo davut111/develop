@@ -1,16 +1,16 @@
 var database = {
-	 db: null,
-	 dbCreated: false,
-	 decks: [],
-	 cards: [],
-	 attributes: [],
-	 lastDeck:0,
-	 lastCard:0,
-	 lastAttribute:0
+	db : null,
+	dbCreated : false,
+	decks : [],
+	cards : [],
+	attributes : [],
+	lastDeck : 0,
+	lastCard : 0,
+	lastAttribute : 0
 };
 
 var attributes = [];
-var insertDeck ;
+var insertDeck;
 
 function initializeDB() {
 	database.db = window.openDatabase("deckDB", "1.0", "Application Database", 1000000);
@@ -41,12 +41,11 @@ function getData(tx) {
 	tx.executeSql(sqlAttributes, [], getAttributes_success);
 	database.db = null;
 
-
 }
 
 function getDecks_success(tx, results) {
 	var len = results.rows.length;
-	database.lastDeck = len-1;
+	database.lastDeck = len - 1;
 	for (var i = 0; i < len; i++) {
 		var row = results.rows.item(i);
 		database.decks[database.decks.length] = row;
@@ -55,8 +54,8 @@ function getDecks_success(tx, results) {
 
 function getCards_success(tx, results) {
 	var len = results.rows.length;
-	database.lastCard = len-1;
-	var actDeck= -1;
+	database.lastCard = len - 1;
+	var actDeck = -1;
 	var actCard = -1;
 	for (var i = 0; i < len; i++) {
 		var card = results.rows.item(i);
@@ -75,7 +74,7 @@ function getCards_success(tx, results) {
 
 function getAttributes_success(tx, results) {
 	var len = results.rows.length;
-	database.lastAttribute = len-1;
+	database.lastAttribute = len - 1;
 	var actCard = -1;
 	var actAttribute = -1;
 	for (var i = 0; i < len; i++) {
@@ -95,98 +94,103 @@ function getAttributes_success(tx, results) {
 	assignmentDB();
 }
 
-function assignmentDB(){
-	for(var i=0;i<database.attributes.length;i++){
+function assignmentDB() {
+	for (var i = 0; i < database.attributes.length; i++) {
 		var toCard = database.attributes[i][0].card;
 		var toDeck = database.attributes[i][0].deck;
 		var deck = database.cards[toDeck];
-		for(var j=0;j<deck.length;j++){
-			if(deck[j].cardId === toCard){
+		for (var j = 0; j < deck.length; j++) {
+			if (deck[j].cardId === toCard) {
 				deck[j].attributes = database.attributes[i];
 			}
 		}
 	}
-	
-	for(var i=0;i<database.cards.length;i++){
+
+	for (var i = 0; i < database.cards.length; i++) {
 		var toDeck = database.cards[i][0].deck;
 		database.decks[toDeck].cards = database.cards[i];
 	}
 	loadGallery();
 }
 
-function insertDeckIntoDB(deck){
+function insertDeckIntoDB(deck) {
 	insertDeck = deck;
-	
+
 	database.db = window.openDatabase("deckDB", "1.0", "Application Database", 1000000);
 	database.db.transaction(insertData, transaction_error);
 
-	database.decks= [];
-	database.cards= [];
-	database.attributes= [];
+	database.decks = [];
+	database.cards = [];
+	database.attributes = [];
 
 	database.db.transaction(getData, transaction_error);
 	database.db = null;
 }
 
-function insertData(tx){
+function insertData(tx) {
 	var deck = insertDeck;
-	var deckId= database.lastDeck +1;
-	var cardIdStart = database.lastCard +1;
-	var attributeIdStart = database.lastAttribute +1;
-		var deckName = deck.deckName;
-		var numberAttributes = deck.attributeNumber;
-		var numberCards = deck.cardNumber;
-		var deckType = deck.deckType;
-		var deckPicture = deck.cards[0].picture;
-		var averages=[];
-		
-		averages = calcAverage(deck);
-		tx.executeSql("INSERT INTO decks (deckId,deckName,numberAttributes,numberCards,deckType,deckPicture,actualDeck) VALUES ("+deckId+",'"+deckName+"',"+numberAttributes+","+numberCards+",'"+deckType+"','"+deckPicture+"',0)");
-
-		for(var i = cardIdStart;i<(cardIdStart+deck.cards.length); i++){
-			var cardName = deck.cards[i-cardIdStart].name;
-			var cardPicture = deck.cards[i-cardIdStart].picture;
-			tx.executeSql("INSERT INTO cards (cardId,deck,cardName,description,cardPicture) VALUES ("+
-			i+","+deckId+",'"+cardName+"','Dies ist eine Spielkarte','"+cardPicture+"')");
-			
-			for(var j = attributeIdStart; j<(attributeIdStart+numberAttributes);j++){
-				var attributeName = deck.cards[i-cardIdStart].attributes[j-attributeIdStart].name;
-				var attributeType= deck.cards[i-cardIdStart].attributes[j-attributeIdStart].type;
-				var value = deck.cards[i-cardIdStart].values[j-attributeIdStart];
-				var higherValue;			
-				if(deck.cards[i-cardIdStart].attributes[j-attributeIdStart].higherValue == true){
-					higherValue = 1;
-				}else{
-					higherValue = 0;
-				}
-			
-			tx.executeSql("INSERT INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES ("+
-			j+","+i+","+deckId+",'"+attributeName+"',"+value+",'"+attributeType+"',"+higherValue+","+averages[j-attributeIdStart]+")");
-			}
-			attributeIdStart+=5;
-		}
-		
+	var deckId = database.lastDeck + 1;
+	var cardIdStart = database.lastCard + 1;
+	var attributeIdStart = database.lastAttribute + 1;
+	var deckName = deck.deckName;
+	var numberAttributes = deck.attributeNumber;
+	var numberCards = deck.cardNumber;
+	var deckType = deck.deckType;
+	var deckPicture;
+	if ("deckPic" in deck) {
+		deckPicture = deck.deckPic;
+	} else {
+		deckPicture = deck.cards[0].picture;
 	}
-	
-function setActiveDeck(deckNumber,tx){
+	var averages = [];
+
+	averages = calcAverage(deck);
+	tx.executeSql("INSERT INTO decks (deckId,deckName,numberAttributes,numberCards,deckType,deckPicture,actualDeck) VALUES (" + deckId + ",'" + deckName + "'," + numberAttributes + "," + numberCards + ",'" + deckType + "','" + deckPicture + "',0)");
+
+	for (var i = cardIdStart; i < (cardIdStart + deck.cards.length); i++) {
+		var cardName = deck.cards[i - cardIdStart].name;
+		var cardPicture = deck.cards[i - cardIdStart].picture;
+		tx.executeSql("INSERT INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (" + i + "," + deckId + ",'" + cardName + "','Dies ist eine Spielkarte','" + cardPicture + "')");
+
+		for (var j = attributeIdStart; j < (attributeIdStart + numberAttributes); j++) {
+			var attributeName = deck.cards[i-cardIdStart].attributes[j - attributeIdStart].name;
+			var attributeType = deck.cards[i-cardIdStart].attributes[j - attributeIdStart].type;
+			var value = deck.cards[i-cardIdStart].values[j - attributeIdStart];
+			var higherValue;
+			if (deck.cards[i-cardIdStart].attributes[j - attributeIdStart].higherValue == true) {
+				higherValue = 1;
+			} else {
+				higherValue = 0;
+			}
+
+			tx.executeSql("INSERT INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES (" + j + "," + i + "," + deckId + ",'" + attributeName + "'," + value + ",'" + attributeType + "'," + higherValue + "," + averages[j - attributeIdStart] + ")");
+		}
+		attributeIdStart += 5;
+	}
+
+}
+
+function setActiveDeck(deckNumber, tx) {
 	database.db = window.openDatabase("deckDB", "1.0", "Application Database", 1000000);
-	database.db.transaction(function(tx){setActiveDeckDB(tx, deckNumber);}, transaction_error);
-	
-	database.decks= [];
-	database.cards= [];
-	database.attributes= [];
+	database.db.transaction(function(tx) {
+		setActiveDeckDB(tx, deckNumber);
+	}, transaction_error);
+
+	database.decks = [];
+	database.cards = [];
+	database.attributes = [];
 
 	database.db.transaction(getData, transaction_error);
 	database.db = null;
 }
 
-function setActiveDeckDB(tx,deck){
+function setActiveDeckDB(tx, deck) {
 	tx.executeSql("UPDATE decks SET actualDeck = 0 WHERE actualDeck = 1");
-	tx.executeSql("UPDATE decks SET actualDeck = 1 WHERE deckId = "+deck);
+	tx.executeSql("UPDATE decks SET actualDeck = 1 WHERE deckId = " + deck);
 }
 
 function populateDB(tx) {
-	
+
 	/**Auskommentieren um erstellte Decks persistent zu speichern**/
 	tx.executeSql('DROP TABLE IF EXISTS decks');
 	tx.executeSql('DROP TABLE IF EXISTS cards');
@@ -196,12 +200,12 @@ function populateDB(tx) {
 
 	var sqlCards = "CREATE TABLE IF NOT EXISTS cards ( " + "cardId INTEGER PRIMARY KEY AUTOINCREMENT, " + "deck INTEGER REFERENCES decks, " + "cardName VARCHAR(50), " + "description VARCHAR(500), " + "cardPicture VARCHAR(200))";
 
-	var sqlAttributes = "CREATE TABLE IF NOT EXISTS attributes ( " + "attributeId INTEGER PRIMARY KEY AUTOINCREMENT, " + "card INTEGER REFERENCES cards, "+ "deck INTEGER REFERENCES decks," + "attributeName VARCHAR(50), " + "value DOUBLE(20), " + "unit VARCHAR(50), " + "higherValue BOOLEAN, "+"average DOUBLE(10))";
+	var sqlAttributes = "CREATE TABLE IF NOT EXISTS attributes ( " + "attributeId INTEGER PRIMARY KEY AUTOINCREMENT, " + "card INTEGER REFERENCES cards, " + "deck INTEGER REFERENCES decks," + "attributeName VARCHAR(50), " + "value DOUBLE(20), " + "unit VARCHAR(50), " + "higherValue BOOLEAN, " + "average DOUBLE(10))";
 
 	tx.executeSql(sqlDecks);
 	tx.executeSql(sqlCards);
 	tx.executeSql(sqlAttributes);
-	
+
 	/*************************************************************
 	 * ***********************************************************
 	 * **************************CARS DECK************************
@@ -209,7 +213,7 @@ function populateDB(tx) {
 	 * ***********************************************************/
 
 	tx.executeSql("INSERT OR IGNORE INTO decks (deckId,deckName,numberAttributes,numberCards,deckType,deckPicture,actualDeck) VALUES (0,'Luxusautos',5,32,'Auto','img/Luxusautos/1.jpg',1)");
-	
+
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (0,0,'Bentley Continental GT','Dies ist eine Beispielkarte','img/Luxusautos/1.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (1,0,'Porsche Panamera Turbo','Dies ist eine Beispielkarte','img/Luxusautos/2.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (2,0,'BMW 650i Gran Coupé','Dies ist eine Beispielkarte','img/Luxusautos/3.jpg')");
@@ -403,8 +407,7 @@ function populateDB(tx) {
 	tx.executeSql("INSERT OR IGNORE INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES (157,31,0,'Gewicht',1550,'kg',0,1763)");
 	tx.executeSql("INSERT OR IGNORE INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES (158,31,0,'Zylinder',8,'',1,9)");
 	tx.executeSql("INSERT OR IGNORE INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES (159,31,0,'Leistung',631,'ps',1,571)");
-	
-	
+
 	/*************************************************************
 	 * ***********************************************************
 	 * **************************BIKES DECK***********************
@@ -412,7 +415,7 @@ function populateDB(tx) {
 	 * ***********************************************************/
 
 	tx.executeSql("INSERT OR IGNORE INTO decks (deckId,deckName,numberAttributes,numberCards,deckType,deckPicture,actualDeck) VALUES (1,'Bikes',5,32,'Motorräder','img/Bikes/1.jpg',0)");
-	
+
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (32,1,'Yamaha YZR M1','Dies ist eine Beispielkarte','img/Bikes/1.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (33,1,'Ducati Desmosedici GP11','Dies ist eine Beispielkarte','img/Bikes/2.jpg')");
 	tx.executeSql("INSERT OR IGNORE INTO cards (cardId,deck,cardName,description,cardPicture) VALUES (34,1,'Aprilia 250','Dies ist eine Beispielkarte','img/Bikes/3.jpg')");
@@ -607,4 +610,4 @@ function populateDB(tx) {
 	tx.executeSql("INSERT OR IGNORE INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES (318,63,1,'0 auf 100',2.7,'sec',0,9)");
 	tx.executeSql("INSERT OR IGNORE INTO attributes (attributeId,card,deck,attributeName,value,unit,higherValue,average) VALUES (319,63,1,'Leistung',210,'ps',1,571)");
 
-	}
+}

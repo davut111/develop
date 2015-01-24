@@ -189,7 +189,6 @@ function loadNewDeckPageThree (){
 
 
 function loadGUIPageTwo(attributeNumber){
-	
 	switch (attributeNumber) {
 		case 3 : 
 			$("#new_deck_page_second_content").prepend(
@@ -297,7 +296,7 @@ function loadGUIPageTwo(attributeNumber){
 					    '<option value="lower">Niedriger</option></select></div></div>');
 			break;
 	}
-	
+	$("#new_deck_page_second_content").trigger('create');
 }
 
 function loadGUIPageThree(attributeNumber){
