@@ -50,6 +50,7 @@ C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\css\theme_r
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Bikes \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\logo.png \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Luxusautos \
+C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\quartapp.png \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Bikes\1.jpg \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Bikes\10.jpg \
 C:\Users\Davut\Desktop\develop\quartett\platforms\android\assets\www\img\Bikes\11.jpg \

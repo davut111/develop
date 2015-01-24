@@ -338,16 +338,16 @@ td > b {
 	position: absolute !important;
 	margin-top: 27px !important;
 	z-index: 100;
-	margin-left: 15% !important;
-	width: 50% !important;
+	margin-left: 10% !important;
+	width: 30% !important;
 }
 
 .active-button {
 	position: absolute !important;
 	margin-top: 27px !important;
 	z-index: 100;
-	margin-left: 15% !important;
-	width: 50% !important;
+	margin-left: 10% !important;
+	width: 30% !important;
 }
 
 .hide {

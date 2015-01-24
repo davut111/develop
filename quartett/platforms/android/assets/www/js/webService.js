@@ -115,7 +115,7 @@ function loadServiceDeckData(id) {
 							//console.log(cardsAdditions);
 							console.log(json[0].image);
 							if (i == cards.length - 1) {
-								alert("parseData");
+								//alert("parseData");
 								parseData(deck, cards, cardsDetailed, cardsAttributes, cardsAdditions);
 							}
 							$.ajax({
@@ -173,7 +173,6 @@ function parseData(deck, cards, cardsDetailed, cardsAttributes, cardsAdditions) 
 			}
 		}
 		serviceDeck.cards[serviceDeck.cards.length] = serviceCard;
-		alert(i);
 	}
 	console.log(serviceDeck);
 	$("#load" + deck.id).html("Fertig");

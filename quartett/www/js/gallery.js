@@ -46,10 +46,10 @@ function loadGallery(){
 			});
 		if(database.decks[i].actualDeck == 1){
 			$(deckid).find("h4").html(database.decks[i].deckType+" (aktiv)");
-			$(deckid).prepend('<a href="#" id="activate'+i+'" class="ui-btn ui-button-disabled active-button">Ist bereits aktiv</a>');
+			$(deckid).prepend('<a href="#" id="activate'+i+'" class="ui-btn ui-button-disabled active-button">Ist aktiv</a>');
 			$(activateButton).addClass('hide');
 		}else{
-			$(deckid).prepend('<a href="#" id="activate'+i+'" class="ui-btn activate-button">Als aktiv festlegen</a>');
+			$(deckid).prepend('<a href="#" id="activate'+i+'" class="ui-btn activate-button">Aktivieren</a>');
 			$(activateButton).addClass('hide');
 		}
 	}
